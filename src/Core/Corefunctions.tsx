@@ -1,0 +1,1 @@
+//para funções muito usadas
