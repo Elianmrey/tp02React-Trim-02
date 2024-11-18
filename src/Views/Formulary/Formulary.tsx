@@ -5,10 +5,10 @@ import styles from './StyleFormulary.module.scss';
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton";
 import { Button, FormGroup, Input, InputLabel, Typography } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import dayjs, { Dayjs } from 'dayjs';
 export default function Formulary() {
 
     const [data, setData] = useState<{ message: string } | null>(null);
@@ -49,7 +49,12 @@ export default function Formulary() {
                 <Input name='name' type="text" placeholder="Digite seu nome" sx={MaterialStyles.input} />
                 
                 <InputLabel htmlFor="name" sx={MaterialStyles.inputLabel}>Data de nascimento:</InputLabel>
-                <DateTimePicker label="Data de nascimento" defaultValue={dayjs('2022-04-17T15:30')}/>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    
+                    <DemoContainer components={['DateTimePicker']} sx={MaterialStyles.dateTimePicker}>
+                        <DateTimePicker label="Selecione a data de nascimento" />
+                    </DemoContainer>
+                </LocalizationProvider>
 
                 <InputLabel htmlFor="name" sx={MaterialStyles.inputLabel}>Ocupação:</InputLabel>
                 <Input name='name' type="text" placeholder="Digite sua ocupação" sx={MaterialStyles.input} />
@@ -81,6 +86,11 @@ const MaterialStyles = {
         width: '100%',
         gap: '10px',
         padding: '20px',
+    },
+    dateTimePicker: {
+        width: '100%',
+        marginBottom: '10px',
+        color: 'white',
     },
     button: {
         width: '100%',
