@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import {  SaveToLocalStrg } from "../../Services/LocalStorageManagement";
 import { Link, redirect } from "react-router-dom";
 import { Typography } from "@mui/material";
-import styles from  "./StyleLogin.module.scss";
+import IconButton from '@mui/material/IconButton';
+import styles from "./StyleLogin.module.scss";
 import  { useAppContext } from '../../Context.tsx';
-
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 export default function Signin() {
@@ -67,8 +68,22 @@ export default function Signin() {
                     
                 <button type="submit" className={styles.button} >Login</button>
                 <Link to="/signup">
-                    <button className={styles.button}>
-                    Criar conta</button>
+                    <IconButton variant="contained" color="primary" sx={{
+                        margin: '10px',
+                        width: '150px',
+                        height: '40px',
+                        backgroundColor: '#1a1a1a',
+                        borderRadius: '10px', gap: '10px',
+                        color: '#fff',
+                        fontSize: '16px',
+                        '&:hover': {
+                            backgroundColor: '#1a1a1a',
+                            borderColor: '#646cff',
+                            borderWidth: '2px',
+                            borderStyle:'solid',
+                        }
+                    }}>
+                        <PersonAddIcon /> Criar conta</IconButton>
                 </Link>
                 </form>
            { ShowSnack("Ola Benvindo ao TP de React") };

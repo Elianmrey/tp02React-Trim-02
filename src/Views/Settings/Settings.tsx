@@ -4,7 +4,7 @@ import styles from './StyleSettings.module.scss';
 
 
 import { useState, useEffect } from 'react';
-import MaterialButton from "../../Components/MaterialFab";
+import MaterialButton from "../../Components/MaterialButton.tsx";
 
 export default function Formulary() {
 

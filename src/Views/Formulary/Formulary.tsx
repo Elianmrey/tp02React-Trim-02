@@ -1,6 +1,6 @@
 import styles from './StyleFormulary.module.scss';
 import { useState, useEffect } from 'react';
-import MaterialButton from "../../Components/MaterialFab.tsx";
+import MaterialButton from "../../Components/MaterialButton.tsx";
 import { Box, Button, Container, FormGroup, Input, InputLabel, Typography } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';

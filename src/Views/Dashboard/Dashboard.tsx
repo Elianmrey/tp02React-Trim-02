@@ -1,6 +1,6 @@
 import styles from './StyleDashboard.module.scss';
 import { useState, useEffect } from 'react';
-import MaterialButton from "../../Components/MaterialFab";
+import MaterialButton from "../../Components/MaterialButton.tsx";
 import { Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
 import { dataBase } from '../../Data/Database'
@@ -13,7 +13,10 @@ export default function DashBoard() {
     const [loading, setLoading] = useState<boolean>(true);
     const [open, setOpen] = useState(false);
     
-    const [filters, setFilters] = useState();
+    const [filters, setFilters] = useState<
+        ({ userId: number; name: string; birthDate: string; occupation: string; experience: number } |
+        { name: string; birthDate: string; occupation: string; experience: number; userId?: null; })[]
+    >();
     
     
 
@@ -67,7 +70,7 @@ export default function DashBoard() {
                 <p>{data?.message}</p>
             )}
 
-            <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', backgroundColor: 'orange', borderRadius: '10px', padding: '10px'}}>
+            <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', backgroundColor: 'orange', borderRadius: '10px', padding: '10px', color: 'black'}}>
             <FormGroup sx={{ display: 'flex', flexDirection: 'row' }}>
                 <FormControlLabel name='filter' onClick={ActivateFilter} control={<Checkbox icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} />} label="Ordenar por experiencia" />
                 

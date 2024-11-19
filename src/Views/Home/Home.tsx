@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import MaterialFab from '../../Components/MaterialFab.tsx';
 import { Avatar, Box, Card, Grid2, Typography } from '@mui/material';
 import MaterialButton from '../../Components/MaterialButton.tsx';
+import { Padding } from '@mui/icons-material';
 
 
 
@@ -36,7 +37,7 @@ export default function Home() {
         <Box sx={Styles.container}>
             
             <Box sx={Styles.profileBox}>
-                <Avatar sx={Styles.avatar}>ER</Avatar>
+                <Avatar sx={Styles.avatar}/>
             </Box>
             
             <Grid2 container spacing={3} sx={Styles.containerGrid}>
@@ -54,8 +55,9 @@ export default function Home() {
                 )}
                 
            <MaterialButton route="/formulary" buttonText="Formulário" />
-            <MaterialButton route="/dashboard" buttonText="Dashboard" />
-            <MaterialButton route="/settings" buttonText="Configurações" />
+           <MaterialButton route="/dashboard" buttonText="Dashboard" />
+           <MaterialButton route="/settings" buttonText="Configurações" />
+                
         </Card>
         </Box>
     );
@@ -82,11 +84,11 @@ const Styles = {
     },
     containerGrid: {
         display: 'flex',
-        flexDirection: 'column',
+        padding: '20px',
+        flexWrap: 'wrap',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         margin: '20px',
-        height: '30vh',
         width:'100%',
         backgroundColor: '#181717',
         borderRadius: '10px',
