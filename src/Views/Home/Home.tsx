@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import MaterialFab from '../../Components/MaterialFab.tsx';
 import { Avatar, Box, Card, Grid2, Typography } from '@mui/material';
-import MaterialButton from '../../Components/MaterialButton.tsx';
-import { Padding } from '@mui/icons-material';
 
 
 
@@ -11,10 +9,6 @@ export default function Home() {
     const [data, setData] = useState<{ message: string } | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     
-    
-
-    
-
     useEffect(() => {
 
         async function fetchData() {

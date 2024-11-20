@@ -5,32 +5,34 @@ import { createContext, useContext, useState } from "react";
 interface AppProviderprops 
 {
     children: React.ReactNode,
-    ShowAlert: (message: string) => React.ReactNode;
-    ShowSnack: (message: string) => React.ReactNode;
+   
     
 }
 
 interface AppContextInterface {
     sharedState?: AppProviderprops;
-    ShowSnack: (message: string) => React.ReactNode;
-    ShowAlert: (message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info' | undefined) => React.ReactNode;
+    
+    ShowAlert: (message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info') => React.ReactNode;
+    HandleOpenClose: (value: boolean) => void
 }
 const AppContext = createContext<AppContextInterface | null>(null);
  
+
+
 const AppProvider: React.FC<AppProviderprops> = ({ children }) => {
     
-    const [open, setOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(true);
   
-    function HandleClose(){
-             setOpen(false); };
+    function HandleOpenClose(value: boolean) {
+        setIsOpen(value); };
     
-    function ShowAlert(message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info' | undefined) {
+    function ShowAlert(message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info' ) {
         return (
-            <Snackbar open={open}
+            <Snackbar open={isOpen}
             autoHideDuration={5000}
-            onClose={HandleClose} sx={{ width: '50%' }}
+                onClose={()=>HandleOpenClose(false)} sx={{ width: '50%' }}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-                <Alert onClose={HandleClose}
+                <Alert onClose={() => HandleOpenClose(false)}
                     severity= {possibleSeverity}
                     variant="filled" >
                     {message}
@@ -38,25 +40,16 @@ const AppProvider: React.FC<AppProviderprops> = ({ children }) => {
             </Snackbar>)
     }   
 
-     function ShowSnack (message: string) {
-         return (<Snackbar
-             open={open}
-             autoHideDuration={6000}
-             onClose={HandleClose}
-             message={message }
-            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-               
-            />)
-     }
+    
  
     const sharedState = {
         ShowAlert,
-        ShowSnack,
+       HandleOpenClose
     }
 
     return <AppContext.Provider value={sharedState}>
                     {children}
-              </AppContext.Provider>;
+               </AppContext.Provider>;
 }
 
 export function useAppContext() {

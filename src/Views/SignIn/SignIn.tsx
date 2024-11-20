@@ -49,7 +49,7 @@ export default function Signin() {
          
         
     }
-    const { ShowAlert,ShowSnack  } = useAppContext();
+    const { ShowAlert  } = useAppContext();
     
  
 
@@ -86,8 +86,8 @@ export default function Signin() {
                         <PersonAddIcon /> Criar conta</IconButton>
                 </Link>
                 </form>
-           { ShowSnack("Ola Benvindo ao TP de React") };
-    { ShowAlert("Digite qualquer usuario e senha", "success") };
+
+            {ShowAlert("Ola Benvindo ao TP de React, Digite qualquer usuario e senha", "success") };
             
             </div>
     );

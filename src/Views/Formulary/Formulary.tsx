@@ -10,29 +10,32 @@ import {addUser } from '../../Services/DataService.tsx';
 import { useAppContext } from '../../Context.tsx';
 import { DatePicker } from '@mui/x-date-pickers-pro';
 import dayjs from 'dayjs';
+
+
 export default function Formulary() {
     
-    
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [uId, _]= useState(dataBase.length > 0 ? dataBase.length : 0);
     const [data, setData] = useState<{ message: string }>();
     const [loading, setLoading] = useState<boolean>(true);
-   const [sending, setSending] = useState(false)
+    const [sending, setSending] = useState(false)
+    
     const [info, setInfo] = useState<{
         userId: number,
         name: string,
         birthDate: string,
         occupation: string,
         experience: number } >({
-            userId: 0,
+        userId: 0,
         name: '',
         birthDate: '',
         occupation: '',
         experience: 0,
     });
     
+    const { ShowAlert, HandleOpenClose } = useAppContext();
+    
 
-    const{ShowAlert} = useAppContext();
     const onSubmit = (e: React.FormEvent) => { 
        e.preventDefault();
         setSending(true);
@@ -40,10 +43,13 @@ export default function Formulary() {
             console.log(info)
             addUser({userId: uId, name: info.name, birthDate: info.birthDate, occupation: info.occupation, experience: Number(info.experience) });
             setInfo({ userId: 0, name: '', birthDate: '', occupation: '', experience: 0 });
-            ShowAlert('Dados enviados com sucesso!', 'success')
-        } else if (!info.experience || !info.occupation  || !info.birthDate || !info.name) {
-            
+            ShowAlert('Dados enviados com sucesso!', 'success');
+        
+        } else if (!info.experience || !info.occupation || !info.birthDate || !info.name) {
+        
+            HandleOpenClose(true);
             ShowAlert('Preencha todos os campos. Por favor!', 'error');
+        
         }
         setSending(false)        
     };
@@ -95,7 +101,7 @@ export default function Formulary() {
             <FormGroup sx={MaterialStyles.form}>
 
                 <InputLabel htmlFor="name" sx={MaterialStyles.inputLabel}>Nome:</InputLabel>
-                <Input name='name' type="text" placeholder="Digite seu nome" sx={MaterialStyles.input} value={info?.name} onChange={(e) =>HandleChange(e) }/>
+                <Input name='name' type="text" placeholder="Digite seu nome" sx={MaterialStyles.input} value={info?.name} onChange={HandleChange}/>
                 
                 <InputLabel htmlFor="birthDate" sx={MaterialStyles.inputLabel} >Data de nascimento:</InputLabel>
                                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br" >
@@ -109,10 +115,10 @@ export default function Formulary() {
                 </LocalizationProvider>
 
                 <InputLabel htmlFor="occupation" sx={MaterialStyles.inputLabel}>Ocupação:</InputLabel>
-                <Input name='occupation' type="text" placeholder="Digite sua ocupação" sx={MaterialStyles.input} value={info?.occupation} onChange={(e) =>HandleChange(e) }/>
+                <Input name='occupation' type="text" placeholder="Digite sua ocupação" sx={MaterialStyles.input} value={info?.occupation} onChange={HandleChange }/>
 
                 <InputLabel htmlFor="experience" sx={MaterialStyles.inputLabel}>Tempo de experiência:</InputLabel>
-                <Input name='experience' type="text" placeholder="Digite o tempo de experiência" sx={MaterialStyles.input}  value={info?.experience} onChange={(e) =>HandleChange(e) }/>
+                <Input name='experience' type="text" placeholder="Digite o tempo de experiência" sx={MaterialStyles.input}  value={info?.experience} onChange={HandleChange }/>
 
                 <Button type='submit' value='Enviar'  sx={MaterialStyles.button}>Enviar</Button>
                     </FormGroup>
