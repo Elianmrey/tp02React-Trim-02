@@ -31,17 +31,18 @@ export default function Formulary() {
     });
     
 
-    const{ShowAlert, ShowSnack} = useAppContext();
+    const{ShowAlert} = useAppContext();
     const onSubmit = (e: React.FormEvent) => { 
-       
+       e.preventDefault();
         setSending(true);
-        if (info.name !== '' && info.birthDate  !== ''  && info.occupation  !== ''  && info.experience  !== 0) {
-            e.preventDefault();
+        if (info.name  && info.birthDate && info.occupation  && info.experience  !== 0) {
+            console.log(info)
             addUser({ name: info.name, birthDate: info.birthDate, occupation: info.occupation, experience: info.experience });
             setInfo({ userId: uId, name: '', birthDate: '', occupation: '', experience: 0 });
-        } else if (info.experience === 0 || info.occupation === '' || info.birthDate === '' || info.name === '') {
-            ShowAlert('Preencha todos os campos. Por favor!', 'error');
-            ShowSnack('Preencha todos os campos. Por favor!');
+            ShowAlert('Dados enviados com sucesso!', 'success')
+        } else if (!info.experience || !info.occupation  || !info.birthDate || !info.name) {
+            console.log(ShowAlert('Preencha todos os campos!', 'error') ,"Algum campo está vazio");
+         ShowAlert('Preencha todos os campos!', 'error')
         }
         setSending(false)        
     };
@@ -83,8 +84,8 @@ export default function Formulary() {
             )}
             {sending ? <Container sx={MaterialStyles.containerTitle}><Typography variant='h4' sx={MaterialStyles.title}>Enviando...</Typography></Container>
                 : 
-           <Box sx={MaterialStyles.box}>
-           <Container sx={MaterialStyles.containerTitle}>
+                <Box sx={MaterialStyles.box}>
+            <Container sx={MaterialStyles.containerTitle}>
             <Typography variant='h4' sx={MaterialStyles.title}>Adicione seus dados</Typography>
             </Container>
             <Container sx={MaterialStyles.containerForm}>

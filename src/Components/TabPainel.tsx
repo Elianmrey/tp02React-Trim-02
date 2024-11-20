@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { dataBase } from '../Data/Database';
 import MaterialTable from './MaterialTable';
 
-const TabPanel = ({ children, value, index, ...other }) => {
+const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, ...other }) => {
     return (
         <div
             role="tabpanel"
@@ -21,13 +21,22 @@ const TabPanel = ({ children, value, index, ...other }) => {
     );
 };
 
+interface TabPanelProps {
+    children: React.ReactNode;
+    value: number;
+    index: number;
+}
+
 const TabsMUI = () => {
     const [value, setValue] = useState(0);
 
-    const handleChange = (_, newValue) => {
+    const handleChange = (_: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
+
+   
     const headNames = ['Nome', 'Cargo', 'Experiencia']
+   
     return (
         <Box sx={{ width: '100%' }}>
             <Tabs
@@ -36,9 +45,9 @@ const TabsMUI = () => {
                 aria-label="Tabs example"
                 centered
             >
-                <Tab label="Desenvolvedores" id="tab-0" aria-controls="tabpanel-0" />
-                <Tab label="Managers" id="tab-1" aria-controls="tabpanel-1" />
-                <Tab label="Designers" id="tab-2" aria-controls="tabpanel-2" />
+                <Tab label="Desenvolvedores" id="tab-0" aria-controls="tabpanel-0" sx={StyleSheet.tab} />
+                <Tab label="Managers" id="tab-1" aria-controls="tabpanel-1" sx={StyleSheet.tab} />
+                <Tab label="Designers" id="tab-2" aria-controls="tabpanel-2" sx={StyleSheet.tab} />
             </Tabs>
 
             <TabPanel value={value} index={0}>
@@ -57,3 +66,16 @@ const TabsMUI = () => {
 };
 
 export default TabsMUI;
+
+
+const StyleSheet = {
+    tab: {
+        color: 'white',
+        backgroundColor: 'orange',
+        '&.Mui-selected': {
+            color: 'white',
+            backgroundColor: 'indigo',
+            transition: 'all 0.5s ease-in-out',
+        },
+    },
+};

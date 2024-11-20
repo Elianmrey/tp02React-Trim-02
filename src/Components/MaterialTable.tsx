@@ -1,8 +1,10 @@
-import { Table, TableRow, TableCell, TableBody, TableHead } from "@mui/material";
+import { Table, TableRow, TableCell, TableBody, TableHead, Container } from "@mui/material";
 
 export default function MaterialTable({ cellNames, dataBlock, occupationRange,filter }: { cellNames: Array<string>, dataBlock: Array<{ userId: number, name: string, birthDate: string, occupation: string, experience: number }>, occupationRange: string, filter:boolean}) {
     return (
-        filter? (<Table sx={Styles}>
+        filter ? (
+            <Container sx={{ width: '100%', height: '100%', backgroundColor: 'indigo', padding : '20px',borderRadius: '15px' }}>
+            <Table sx={Styles}>
             <TableHead>
                 <TableRow>
                     {
@@ -18,9 +20,11 @@ export default function MaterialTable({ cellNames, dataBlock, occupationRange,fi
                         <TableCell>{data.experience} anos</TableCell>
                     </TableRow>
                 ))}</TableBody>
-        </Table>)
+                </Table>
+            </Container>)
             :
-            (<Table sx={Styles}>
+            (<Container sx={{ width: '100%', height: '100%', backgroundColor: 'indigo', padding: '20px', borderRadius: '15px' }}>
+                <Table sx={Styles}>
             <TableHead>
                 <TableRow>
                     {
@@ -36,7 +40,8 @@ export default function MaterialTable({ cellNames, dataBlock, occupationRange,fi
                         <TableCell>{item.experience} anos</TableCell>
                     </TableRow >))}
                 </TableBody>
-        </Table>)
+                </Table>
+                </Container>)
     );
 }
 

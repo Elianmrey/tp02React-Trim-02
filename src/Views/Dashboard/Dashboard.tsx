@@ -1,7 +1,7 @@
 import styles from './StyleDashboard.module.scss';
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
-import { Box, Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch,  Tab,  Table, TableBody, TableCell, TableHead, TableRow, Tabs } from '@mui/material';
+import {  Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch,  Tab,  Table, TableBody, TableCell, TableHead, TableRow, Tabs, Typography } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
 import { dataBase } from '../../Data/Database'
 import TabPanel from '../../Components/TabPainel.tsx';
@@ -16,10 +16,7 @@ export default function DashBoard() {
     const [open, setOpen] = useState(false);
      const [checked, setChecked] = useState<boolean>();
    
-    const [filters, setFilters] = useState<
-        ({ userId: number; name: string; birthDate: string; occupation: string; experience: number } |
-        { name: string; birthDate: string; occupation: string; experience: number; userId?: null; })[]
-    >();
+    const [filters, setFilters] = useState([]);
     
     
 
@@ -83,7 +80,9 @@ export default function DashBoard() {
             setFilters(dataBase);
         }
     }
+
     const headNames = ['Nome', 'Data de Nascimento', 'Profissão', 'Tempo de Experiencia'];
+
     return (
         <div className={styles.container}>
             <h1>Página Dashboard</h1>
@@ -109,32 +108,21 @@ export default function DashBoard() {
                 </FormGroup>
             </Container>
 
-<Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', backgroundColor: 'indigo', borderRadius: '10px', padding: '10px'}}>
-                <MaterialTable cellNames={headNames} dataBlock={dataBase} />
-            </Container>
-           
-            <TabPanel />
-
+                <MaterialTable cellNames={headNames} dataBlock={filters} occupationRange='' filter={false} />
+            <Typography variant="h4" component="h2" sx={
+                {
+                    display: 'flex',
+                    textAlign: 'center',
+                    alignItems: 'center',
+                    margin: '10px',
+                }} >
+                Filtrar por Profssões
+            </Typography>
             
-
-
-
-
-
-        
+            <TabPanel />
+            
             <MaterialButton route="/" buttonText="Home" />
         </div>
     );
 };
 
-const tableStyles = {
-    'td, th': {
-        border: 2,
-        borderStyle: 'groove',
-        color: 'white',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-
-}

@@ -10,13 +10,11 @@ interface AppProviderprops
     
 }
 
-interface AppContextInterface 
-{
-    sharedState: AppProviderprops; 
+interface AppContextInterface {
+    sharedState?: AppProviderprops;
     ShowSnack: (message: string) => React.ReactNode;
     ShowAlert: (message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info' | undefined) => React.ReactNode;
 }
-
 const AppContext = createContext<AppContextInterface | null>(null);
  
 const AppProvider: React.FC<AppProviderprops> = ({ children }) => {
@@ -54,8 +52,6 @@ const AppProvider: React.FC<AppProviderprops> = ({ children }) => {
     const sharedState = {
         ShowAlert,
         ShowSnack,
-
-        // Adicionar as outras funcões que sejam necessárias 
     }
 
     return <AppContext.Provider value={sharedState}>
