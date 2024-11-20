@@ -138,6 +138,7 @@ const MaterialStyles = {
     },
     box: {
         display: 'flex',
+        gap: '30px',
         flexDirection: 'column',
         justifyContent: 'center',
         width: '100%',

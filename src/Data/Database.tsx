@@ -2,7 +2,7 @@ export const dataBase = [{
     userId: 1,
     name: "Matheus",
     birthDate: "2000-01-01",
-    occupation: "Developer",
+    occupation: "Desenvolvedor",
     experience: 4,
 },
     {
@@ -22,7 +22,7 @@ export const dataBase = [{
 {
     name: "Pedro",
     birthDate: "1992-08-14",
-    occupation: "Developer",
+    occupation: "Desenvolvedor",
     experience: 12,
     },
     {

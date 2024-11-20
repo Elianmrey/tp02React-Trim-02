@@ -54,9 +54,9 @@ export default function Home() {
                 <p>{data?.message}</p>
                 )}
                 
-           <MaterialButton route="/formulary" buttonText="Formulário" />
+           {/* <MaterialButton route="/formulary" buttonText="Formulário" />
            <MaterialButton route="/dashboard" buttonText="Dashboard" />
-           <MaterialButton route="/settings" buttonText="Configurações" />
+           <MaterialButton route="/settings" buttonText="Configurações" /> */}
                 
         </Card>
         </Box>
