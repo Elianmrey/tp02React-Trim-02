@@ -30,7 +30,7 @@ export const deleteUser = (id: number) => {
     }
 };
 
-export const addUser = (newUser: {userId: number, name: string, birthdate: string, occupation: string, experience: number} ) => {
+export const addUser = (newUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number} ) => {
     dataBase.push(newUser);
     return true;
     };

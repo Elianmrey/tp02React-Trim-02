@@ -68,7 +68,7 @@ export default function Signin() {
                     
                 <button type="submit" className={styles.button} >Login</button>
                 <Link to="/signup">
-                    <IconButton variant="contained" color="primary" sx={{
+                    <IconButton  color="primary" sx={{
                         margin: '10px',
                         width: '150px',
                         height: '40px',

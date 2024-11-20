@@ -9,6 +9,7 @@ import { dataBase } from '../../Data/Database.tsx';
 import {addUser } from '../../Services/DataService.tsx';
 import { useAppContext } from '../../Context.tsx';
 import { DatePicker } from '@mui/x-date-pickers-pro';
+import dayjs from 'dayjs';
 export default function Formulary() {
     
     
@@ -23,7 +24,7 @@ export default function Formulary() {
         birthDate: string,
         occupation: string,
         experience: number } >({
-       userId: uId,
+            userId: 0,
         name: '',
         birthDate: '',
         occupation: '',
@@ -37,12 +38,12 @@ export default function Formulary() {
         setSending(true);
         if (info.name  && info.birthDate && info.occupation  && info.experience  !== 0) {
             console.log(info)
-            addUser({ name: info.name, birthDate: info.birthDate, occupation: info.occupation, experience: info.experience });
-            setInfo({ userId: uId, name: '', birthDate: '', occupation: '', experience: 0 });
+            addUser({userId: uId, name: info.name, birthDate: info.birthDate, occupation: info.occupation, experience: Number(info.experience) });
+            setInfo({ userId: 0, name: '', birthDate: '', occupation: '', experience: 0 });
             ShowAlert('Dados enviados com sucesso!', 'success')
         } else if (!info.experience || !info.occupation  || !info.birthDate || !info.name) {
-            console.log(ShowAlert('Preencha todos os campos!', 'error') ,"Algum campo está vazio");
-         ShowAlert('Preencha todos os campos!', 'error')
+            
+            ShowAlert('Preencha todos os campos. Por favor!', 'error');
         }
         setSending(false)        
     };
@@ -68,10 +69,10 @@ export default function Formulary() {
     }, []);
 
 
-    function HandleChange(evnt) {
-        const value = evnt.currentTarget.value;
-        setInfo((prevData) => ({...prevData, [evnt.target.name]: value}));
-}
+    function HandleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const value = event.currentTarget.value;
+        setInfo((prevData) => ({...prevData, [event.target.name]: value}));
+    }
 
     
     return (
@@ -99,8 +100,11 @@ export default function Formulary() {
                 <InputLabel htmlFor="birthDate" sx={MaterialStyles.inputLabel} >Data de nascimento:</InputLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br" >
                    
-                    <DemoContainer components={['DateTimePicker']} sx={MaterialStyles.dateTimePickerContainer} locale="pt-Br">
-                        <DatePicker  name='birthDate' label="Selecione a data de nascimento"  onChange={(date) => setInfo((prevData) => ({ ...prevData, birthDate: new Date(date).toLocaleDateString('pt-BR') }))}
+                    <DemoContainer components={['DateTimePicker']} sx={MaterialStyles.dateTimePickerContainer} >
+                                        <DatePicker name='birthDate' label="Selecione a data de nascimento" onChange={(date) => setInfo((prevData) => ({
+                                            ...prevData,
+                                            birthDate: new Date(dayjs(date).format('YYYY-MM-DD')).toLocaleDateString('pt-BR')
+                                        }))}
                                 sx={MaterialStyles.dateTimePicker} />
                     </DemoContainer>
                 </LocalizationProvider>
