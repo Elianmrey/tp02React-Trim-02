@@ -1,7 +1,7 @@
 import styles from './StyleDashboard.module.scss';
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
-import {  Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch,  Tab,  Table, TableBody, TableCell, TableHead, TableRow, Tabs, Typography } from '@mui/material';
+import {  Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch, Typography } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
 import { dataBase } from '../../Data/Database'
 import TabPanel from '../../Components/TabPainel.tsx';
@@ -14,9 +14,9 @@ export default function DashBoard() {
 
     const [loading, setLoading] = useState<boolean>(true);
     const [open, setOpen] = useState(false);
-     const [checked, setChecked] = useState<boolean>();
+     const [checked, setChecked] = useState<boolean>(false);
    
-    const [filters, setFilters] = useState([]);
+    const [filters, setFilters] = useState([] as Array<{ userId: number; name: string; birthDate: string; occupation: string; experience: number; } | { name: string; birthDate: string; occupation: string; experience: number; userId?: number; } >);
     
     
 
@@ -25,9 +25,10 @@ export default function DashBoard() {
         async function fetchData() {
             setLoading(true);
             try {
-                await setTimeout(() => {
+                setTimeout(() => {
                     setData({ message: 'Olá ,Voce está em Dashboard!' });
-                    setFilters(dataBase)
+                    setFilters([...dataBase]);
+
                     setLoading(false);
                     setChecked(true);
 
@@ -52,18 +53,18 @@ export default function DashBoard() {
         setChecked(!checked);
     }
 
-    function Ordenation(orderCriteria: string, dataBlock: [{userId: number, name: string, birthdate: string, occupation: string, experience: number  }])
+    function Ordenation(orderCriteria: string, dataBlock: {userId: number, name: string, birthDate: string, occupation: string, experience: number  }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number  }[])
     {
         if (orderCriteria === 'desc')
         {
-              const sortedData: [{ userId: number, name: string, birthdate: string, occupation: string, experience: number }]
+            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number }[]
                 = [...dataBlock].sort((a, b) => b.experience - a.experience)
             setFilters(sortedData);  
             setChecked(true);
         }
         else if (orderCriteria === 'asc')
         {
-            const sortedData: [{ userId: number, name: string, birthdate: string, occupation: string, experience: number }]
+            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number }[]
                 = [...dataBlock].sort((a, b) => a.experience - b.experience);
             setFilters(sortedData);  
             setChecked(true);
@@ -77,7 +78,7 @@ export default function DashBoard() {
             setFilters(filteredData);
         }
         else {
-            setFilters(dataBase);
+            setFilters([...dataBase ]);
         }
     }
 
@@ -98,10 +99,10 @@ export default function DashBoard() {
                 
                     {open ? <FormGroup sx={{ display: 'flex', flexDirection: 'row' }}>
                         <RadioGroup sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'  }} name="radio-buttons-group">
-                            <Radio onClick={() => (Ordenation('desc', dataBase))} icon={<ArrowDownwardOutlined/>}   checkedIcon={<ArrowDownward />} sx={{ color: 'black' }} value="Older" name="Older" /> Mais antigos
+                            <Radio onClick={() => (Ordenation('desc', [...dataBase]))} icon={<ArrowDownwardOutlined/>}   checkedIcon={<ArrowDownward />} sx={{ color: 'black' }} value="Older" name="Older" /> Mais antigos
                             <Radio  onClick={() =>(Ordenation('asc',dataBase))}  icon={<ArrowUpwardOutlined/>}   checkedIcon={<ArrowUpward/>} sx={{ color: 'black' }} value="Newer" name="Newer" /> Mais recentes
                             </RadioGroup>
-                        <FormControlLabel control={<Switch defaultChecked={checked ? () => setChecked(false) : () => setChecked(true)} icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} checked={checked ? false : true} />} label="Mais de 5 anos" sx={{ marginLeft: '10px' }} onChange={() => { CheckedSwitch(); FilterByExperience() }} />
+                        <FormControlLabel control={<Switch defaultChecked={checked} icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} checked={checked ? false : true} />} label="Mais de 5 anos" sx={{ marginLeft: '10px' }} onChange={() => { CheckedSwitch(); FilterByExperience() }} />
                        
                     </FormGroup>
                : false}

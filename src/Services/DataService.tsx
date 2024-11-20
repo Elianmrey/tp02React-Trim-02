@@ -6,14 +6,14 @@ export const getUsers = () => {
 };
 
 export const getUserById = (id: number) => {
-  return dataBase.find((user) => user.id === id);
+  return dataBase.find((user) => user.userId === id);
 };
 
 
-export const updateUser = (id: number, updatedUser: {userId: number, name: string, birthdate: string, occupation: string, experience: number}) => {
-    const index = dataBase.findIndex((user) => user.id === id);
+export const updateUser = (id: number, updatedUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number}) => {
+  const index: number = dataBase.findIndex((user) => user.userId === id);
     if (index !== -1) {
-        dataBase[index] = updatedUser;
+        dataBase[index] = { ...updatedUser, birthDate: updatedUser.birthDate };
       return true;
     } else {
       return false;
@@ -21,7 +21,7 @@ export const updateUser = (id: number, updatedUser: {userId: number, name: strin
 };
 
 export const deleteUser = (id: number) => {
-    const index = dataBase.findIndex((user) => user.id === id);
+    const index = dataBase.findIndex((user) => user.userId === id);
     if (index !== -1) {
       dataBase.splice(index, 1);
       return true;
@@ -30,7 +30,7 @@ export const deleteUser = (id: number) => {
     }
 };
 
-export const addUser = (newUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number} ) => {
+export const addUser = (newUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number}  ) => {
     dataBase.push(newUser);
     return true;
     };

@@ -98,9 +98,8 @@ export default function Formulary() {
                 <Input name='name' type="text" placeholder="Digite seu nome" sx={MaterialStyles.input} value={info?.name} onChange={(e) =>HandleChange(e) }/>
                 
                 <InputLabel htmlFor="birthDate" sx={MaterialStyles.inputLabel} >Data de nascimento:</InputLabel>
-                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br" >
-                   
-                    <DemoContainer components={['DateTimePicker']} sx={MaterialStyles.dateTimePickerContainer} >
+                                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br" >
+                                    <DemoContainer components={['DateTimePicker']} sx={MaterialStyles.dateTimePickerContainer} >
                                         <DatePicker name='birthDate' label="Selecione a data de nascimento" onChange={(date) => setInfo((prevData) => ({
                                             ...prevData,
                                             birthDate: new Date(dayjs(date).format('YYYY-MM-DD')).toLocaleDateString('pt-BR')
@@ -116,7 +115,6 @@ export default function Formulary() {
                 <Input name='experience' type="text" placeholder="Digite o tempo de experiência" sx={MaterialStyles.input}  value={info?.experience} onChange={(e) =>HandleChange(e) }/>
 
                 <Button type='submit' value='Enviar'  sx={MaterialStyles.button}>Enviar</Button>
-              
                     </FormGroup>
             </form>
                 <MaterialButton route="/" buttonText="Home" />
