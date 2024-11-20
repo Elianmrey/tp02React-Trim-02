@@ -11,9 +11,8 @@ interface AppProviderprops
 
 interface AppContextInterface {
     sharedState?: AppProviderprops;
-    
     ShowAlert: (message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info') => React.ReactNode;
-    HandleOpenClose: (value: boolean) => void
+   
 }
 const AppContext = createContext<AppContextInterface | null>(null);
  
@@ -23,16 +22,16 @@ const AppProvider: React.FC<AppProviderprops> = ({ children }) => {
     
     const [isOpen, setIsOpen] = useState(true);
   
-    function HandleOpenClose(value: boolean) {
-        setIsOpen(value); };
+    function HandleOpenClose() {
+        setIsOpen(!isOpen); };
     
     function ShowAlert(message: string, possibleSeverity: 'success' | 'error' | 'warning' | 'info' ) {
         return (
             <Snackbar open={isOpen}
             autoHideDuration={5000}
-                onClose={()=>HandleOpenClose(false)} sx={{ width: '50%' }}
+                onClose={HandleOpenClose} sx={{ width: '50%' }}
                 anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-                <Alert onClose={() => HandleOpenClose(false)}
+                <Alert onClose={HandleOpenClose}
                     severity= {possibleSeverity}
                     variant="filled" >
                     {message}
@@ -44,7 +43,7 @@ const AppProvider: React.FC<AppProviderprops> = ({ children }) => {
  
     const sharedState = {
         ShowAlert,
-       HandleOpenClose
+     
     }
 
     return <AppContext.Provider value={sharedState}>

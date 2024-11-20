@@ -33,7 +33,7 @@ export default function Formulary() {
         experience: 0,
     });
     
-    const { ShowAlert, HandleOpenClose } = useAppContext();
+    const { ShowAlert } = useAppContext();
     
 
     const onSubmit = (e: React.FormEvent) => { 
@@ -47,7 +47,7 @@ export default function Formulary() {
         
         } else if (!info.experience || !info.occupation || !info.birthDate || !info.name) {
         
-            HandleOpenClose(true);
+            
             ShowAlert('Preencha todos os campos. Por favor!', 'error');
         
         }
