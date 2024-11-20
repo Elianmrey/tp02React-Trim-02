@@ -49,11 +49,13 @@ export default function Signin() {
          
         
     }
-    const { ShowAlert  } = useAppContext();
     
- 
 
-    return (
+    const { ShowAlert } = useAppContext();
+
+    ShowAlert('Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha', 'success');
+
+     return (
         <div>
 
             <Typography variant="h2" component="h2" align="center" gutterBottom style={{ fontSize: '3rem', fontWeight: 'bold' }}>Login</Typography>
@@ -86,8 +88,10 @@ export default function Signin() {
                         <PersonAddIcon /> Criar conta</IconButton>
                 </Link>
                 </form>
-
-            {ShowAlert("Ola Benvindo ao TP de React, Digite qualquer usuario e senha", "success") };
+             
+                
+             
+             
             
             </div>
     );
