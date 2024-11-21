@@ -10,7 +10,7 @@ export const getUserById = (id: number) => {
 };
 
 
-export const updateUser = (id: number, updatedUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number}) => {
+export const updateUser = (id: number, updatedUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number, description : string}) => {
   const index: number = dataBase.findIndex((user) => user.userId === id);
     if (index !== -1) {
         dataBase[index] = { ...updatedUser, birthDate: updatedUser.birthDate };
@@ -30,7 +30,7 @@ export const deleteUser = (id: number) => {
     }
 };
 
-export const addUser = (newUser: {userId: number, name: string, birthDate: string, occupation: string, experience: number}  ) => {
+export const addUser = (newUser: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description : string}  ) => {
     dataBase.push(newUser);
     return true;
     };

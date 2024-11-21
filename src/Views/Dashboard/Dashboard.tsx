@@ -16,7 +16,7 @@ export default function DashBoard() {
     const [open, setOpen] = useState(false);
      const [checked, setChecked] = useState<boolean>(false);
    
-    const [filters, setFilters] = useState([] as Array<{ userId: number; name: string; birthDate: string; occupation: string; experience: number; } | { name: string; birthDate: string; occupation: string; experience: number; userId?: number; } >);
+    const [filters, setFilters] = useState([] as Array<{ userId: number; name: string; birthDate: string; occupation: string; experience: number, description: string } | { name: string; birthDate: string; occupation: string; experience: number; userId?: number, description: string } >);
     
     
 
@@ -53,18 +53,18 @@ export default function DashBoard() {
         setChecked(!checked);
     }
 
-    function Ordenation(orderCriteria: string, dataBlock: {userId: number, name: string, birthDate: string, occupation: string, experience: number  }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number  }[])
+    function Ordenation(orderCriteria: string, dataBlock: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string  }[])
     {
         if (orderCriteria === 'desc')
         {
-            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number }[]
+            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }[]
                 = [...dataBlock].sort((a, b) => b.experience - a.experience)
             setFilters(sortedData);  
             setChecked(true);
         }
         else if (orderCriteria === 'asc')
         {
-            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number }[]
+            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }[]
                 = [...dataBlock].sort((a, b) => a.experience - b.experience);
             setFilters(sortedData);  
             setChecked(true);
@@ -82,7 +82,7 @@ export default function DashBoard() {
         }
     }
 
-    const headNames = ['Nome', 'Data de Nascimento', 'Profissão', 'Tempo de Experiencia'];
+    const headNames = ['Nome', 'Data de Nascimento', 'Profissão', 'Tempo de Experiencia', 'Descrição da Profissão'];
 
     return (
         <div className={styles.container}>
@@ -93,7 +93,7 @@ export default function DashBoard() {
                 <p>{data?.message}</p>
             )}
 
-            <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', backgroundColor: 'orange', borderRadius: '10px', padding: '10px', color: 'black'}}>
+            <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', minWidth: '50%', backgroundColor: 'orange', borderRadius: '10px', padding: '10px', color: 'black'}}>
             <FormGroup sx={{ display: 'flex', flexDirection: 'row' }}>
                 <FormControlLabel name='filter' onClick={ActivateFilter} control={<Checkbox icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} />} label="Ordenar por experiencia" />
                 

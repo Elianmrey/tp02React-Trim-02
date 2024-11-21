@@ -1,18 +1,18 @@
 import { Table, TableRow, TableCell, TableBody, TableHead, Container } from "@mui/material";
 
-export default function MaterialTable({ cellNames, dataBlock, occupationRange, filter }: { cellNames: Array<string>, dataBlock: Array<{ userId: number, name: string, birthDate: string, occupation: string, experience: number } | {  name: string, birthDate: string, occupation: string, experience: number, userId?: number }>, occupationRange: string, filter: boolean }) {
+export default function MaterialTable({ cellNames, dataBlock, occupationRange, filter }: { cellNames: Array<string>, dataBlock: Array<{ userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string } | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }>, occupationRange: string, filter: boolean }) {
     return (
         filter ? (
-            <Container sx={{ width: '100%', height: '100%', backgroundColor: 'indigo', padding : '20px',borderRadius: '15px' }}>
-            <Table sx={Styles}>
-            <TableHead>
+            <Container sx={{ width: '100%', height: '100%', backgroundColor: 'indigo', minWidth: '600px', padding : '20px',borderRadius: '15px' }}>
+                <Table sx={tableStyles.table}>
+                    <TableHead sx={Styles}>
                 <TableRow>
                     {
                         cellNames.map((cell, index) => { return (<TableCell key={index}>{cell}</TableCell>) })
                     }
                 </TableRow>
             </TableHead>
-            <TableBody>
+                    <TableBody sx={Styles}>
                 {(dataBlock.filter(data => data.occupation === occupationRange )).map((data) => (
                     <TableRow key={data.userId}>
                         <TableCell>{data.name}</TableCell>
@@ -24,20 +24,21 @@ export default function MaterialTable({ cellNames, dataBlock, occupationRange, f
             </Container>)
             :
             (<Container sx={{ width: '100%', height: '100%', backgroundColor: 'indigo', padding: '20px', borderRadius: '15px' }}>
-                <Table sx={Styles}>
-            <TableHead>
+                <Table sx={tableStyles.table}>
+                    <TableHead sx={Styles}>
                 <TableRow>
                     {
                         cellNames.map((cell, index) => { return (<TableCell key={index}>{cell}</TableCell>) })
                     }
                 </TableRow>
             </TableHead>
-            <TableBody>
+                    <TableBody sx={Styles}>
                     {dataBlock.map((item, index) => (<TableRow key={index}>
                         <TableCell>{item.name}</TableCell>
                         <TableCell>{item.birthDate}</TableCell>
                         <TableCell>{item.occupation}</TableCell>
                         <TableCell>{item.experience} anos</TableCell>
+                        <TableCell>{item.description}</TableCell>
                     </TableRow >))}
                 </TableBody>
                 </Table>
@@ -46,12 +47,20 @@ export default function MaterialTable({ cellNames, dataBlock, occupationRange, f
 }
 
 const Styles = {
-    'th, td': {
+    'td, th': {
         border: 2,
         borderStyle: 'groove',
         color: 'white',
         borderRadius: 10,
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'center',
+        whiteSpace: 'wrap',
+    },
+};
+
+const tableStyles = {
+    table:  {
+        minWidth: '50%',
+        borderRadius: 10,
     },
 };

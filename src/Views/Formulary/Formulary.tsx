@@ -1,13 +1,12 @@
 import styles from './StyleFormulary.module.scss';
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
-import { Box, Button, Container, FormGroup, Input, InputLabel, Typography } from '@mui/material';
+import { Box, Button, Container, FormGroup, Input, InputLabel, TextField, Typography } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'; 
 import { dataBase } from '../../Data/Database.tsx';
 import {addUser } from '../../Services/DataService.tsx';
-import { useAppContext } from '../../Context.tsx';
 import { DatePicker } from '@mui/x-date-pickers-pro';
 import dayjs from 'dayjs';
 
@@ -25,30 +24,32 @@ export default function Formulary() {
         name: string,
         birthDate: string,
         occupation: string,
-        experience: number } >({
+        experience: number,
+        description: string
+}>({
         userId: 0,
         name: '',
         birthDate: '',
         occupation: '',
-        experience: 0,
+    experience: 0,
+    description: '',
     });
     
-    const { ShowAlert } = useAppContext();
+   
     
 
     const onSubmit = (e: React.FormEvent) => { 
        e.preventDefault();
         setSending(true);
-        if (info.name  && info.birthDate && info.occupation  && info.experience  !== 0) {
+        if (info.name && info.birthDate && info.occupation && info.experience !== 0 && info.description) {
             console.log(info)
-            addUser({userId: uId, name: info.name, birthDate: info.birthDate, occupation: info.occupation, experience: Number(info.experience) });
-            setInfo({ userId: 0, name: '', birthDate: '', occupation: '', experience: 0 });
-            ShowAlert('Dados enviados com sucesso!', 'success');
+            addUser({ userId: uId, name: info.name, birthDate: info.birthDate, occupation: info.occupation, experience: Number(info.experience), description: info.description });
+            setInfo({ userId: 0, name: '', birthDate: '', occupation: '', experience: 0, description: ''});
+            alert('Dados enviados com sucesso!');
         
-        } else if (!info.experience || !info.occupation || !info.birthDate || !info.name) {
-        
-            
-            ShowAlert('Preencha todos os campos. Por favor!', 'error');
+        } else if (!info.experience || !info.occupation || !info.birthDate || !info.name || !info.description) {
+            setSending(false)
+           alert('Preencha todos os campos. Por favor!');
         
         }
         setSending(false)        
@@ -82,7 +83,7 @@ export default function Formulary() {
 
     
     return (
-        <div className={styles.container}>
+        <div className={styles.container} >
             <h1>Formulário</h1>
             {loading ? (
                 <p>Carregando...</p>
@@ -120,8 +121,12 @@ export default function Formulary() {
                 <InputLabel htmlFor="experience" sx={MaterialStyles.inputLabel}>Tempo de experiência:</InputLabel>
                 <Input name='experience' type="text" placeholder="Digite o tempo de experiência" sx={MaterialStyles.input}  value={info?.experience} onChange={HandleChange }/>
 
+                <InputLabel htmlFor="description" sx={MaterialStyles.inputLabel}>Descrição:</InputLabel>                
+              <TextField name="description" placeholder="Digite o tempo de experiência" sx={MaterialStyles.textField} value={info?.description} onChange={HandleChange} />
+                
                 <Button type='submit' value='Enviar'  sx={MaterialStyles.button}>Enviar</Button>
-                    </FormGroup>
+                            </FormGroup>
+                            
             </form>
                 <MaterialButton route="/" buttonText="Home" />
                     </Container>
@@ -134,17 +139,6 @@ export default function Formulary() {
 
 
 const MaterialStyles = {
-    containerTitle: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        width: '100%',
-        alignItems: 'center',
-        backgroundColor: 'orange',
-        borderRadius: '10px',
-        padding: '10px',
-        boxShadow: 'inset 0px 0px 5px 1px black',
-    },
     box: {
         display: 'flex',
         gap: '30px',
@@ -154,7 +148,21 @@ const MaterialStyles = {
         alignItems: 'center',
         borderRadius: '10px',
         padding: '10px',
+        
+        
     },
+    containerTitle: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        width: '100%',
+        alignItems: 'center',
+        backgroundColor: 'orange',
+        borderRadius: '10px',
+        padding: '10px',
+        
+    },
+   
     title: {
         color: 'black',
     },
@@ -172,7 +180,6 @@ const MaterialStyles = {
         backgroundColor: 'orange',
         borderRadius: '10px',
         padding: '10px',
-        boxShadow: 'inset 0px 0px 20px 1px black',
     },
     inputLabel: {
         color: 'black',
@@ -202,6 +209,11 @@ const MaterialStyles = {
         width: '100%',
         gap: '10px',
         padding: '20px',
+    },
+    textField: {
+        width: '100%',
+        marginBottom: '10px',
+        color: 'black', 
     },
     };
     

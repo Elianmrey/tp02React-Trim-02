@@ -41,7 +41,7 @@ export default function Home() {
             </Grid2>
             
         <Card sx={Styles.card}>
-                <Typography variant="h2" component="h1" sx={Styles.title}>Painel Inicial</Typography>
+                <Typography variant="h3" component="h1" sx={Styles.title}>Painel Inicial</Typography>
             {loading ? (
                 <p>Carregando...</p>
             ) : (
@@ -65,7 +65,11 @@ const Styles = {
         color: '#fff',
         fontSize: '30px',
         fontWeight: 'bold',
-        marginRight: '20px'
+        marginRight: '20px',
+        '&& @media(min-width:768px)': {
+            width: '60px',
+            height: '60px',
+        }
     },
     profileBox: {
         display: 'flex',        
@@ -73,8 +77,9 @@ const Styles = {
         justifyContent: 'flex-end',
         marginBottom: '20px',
         width: '100%',
+        height: '5vh',
         borderRadius: '10px',
-        padding: '10px',
+      
     },
     containerGrid: {
         display: 'flex',
@@ -83,8 +88,10 @@ const Styles = {
         alignItems: 'center',
         justifyContent: 'space-evenly',
         margin: '20px',
-        width:'100%',
-        backgroundColor: '#181717',
+        width: '100%',
+        height: 'fit-content',
+        overFlow: 'auto',
+        backgroundColor: 'orange',
         borderRadius: '10px',
         borderColor: 'orange',
         borderWidth: '2px',
@@ -96,17 +103,18 @@ const Styles = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        margin: '20px',
         height: '90vh',
-        backgroundColor: '#181717',
+        backgroundColor: 'indigo',
         borderRadius: '10px',
         borderColor: 'grey',
         borderWidth: '2px',
         borderStyle: 'solid',
+        
     },
     card: {
-            width: '100%',
-            padding: '20px',
+        width: '100%',
+        height: 'fit-content',
+        padding: '10px',
         boxShadow: '0px 0px 5px #999',
         transition: 'box-shadow 0.3s ease-in-out',
         '&:hover': {
@@ -119,5 +127,10 @@ const Styles = {
         fontWeight: 'bold',
         marginBottom: '20px',
         color: '#FFA507',
+    },
+    "body": {
+        width: '100%',
+       
+       
     }
 }

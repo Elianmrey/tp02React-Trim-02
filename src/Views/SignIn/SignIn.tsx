@@ -53,7 +53,7 @@ export default function Signin() {
 
     const { ShowAlert } = useAppContext();
 
-    ShowAlert('Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha', 'success');
+  
 
      return (
         <div>
@@ -89,7 +89,7 @@ export default function Signin() {
                 </Link>
                 </form>
              
-                
+             {ShowAlert('Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha', 'success')};
              
              
             
