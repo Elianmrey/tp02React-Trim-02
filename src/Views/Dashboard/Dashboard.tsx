@@ -1,11 +1,12 @@
-import styles from './StyleDashboard.module.scss';
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
-import {  Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch, Typography } from '@mui/material';
+import {  Checkbox, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
 import { dataBase } from '../../Data/Database'
 
 import MaterialTable from '../../Components/MaterialTable.tsx';
+import MaterialContainer from '../../Components/MaterialContainer.tsx';
+import MaterialBox from '../../Components/MaterialBox.tsx';
 
 
 export default function DashBoard() {
@@ -85,7 +86,7 @@ export default function DashBoard() {
     const headNames = ['Nome', 'Data de Nascimento', 'Profissão', 'Tempo de Experiencia', 'Descrição da Profissão'];
 
     return (
-        <div className={styles.container}>
+        <MaterialBox styles={styles.container}>
             <h1>Página Dashboard</h1>
             {loading ? (
                 <p>Carregando...</p>
@@ -93,7 +94,7 @@ export default function DashBoard() {
                 <p>{data?.message}</p>
             )}
 
-            <Container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', minWidth: '50%', backgroundColor: 'orange', borderRadius: '10px', padding: '10px', color: 'black'}}>
+            <MaterialContainer styles={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%', minWidth: '50%', backgroundColor: 'orange', borderRadius: '10px', padding: '10px', color: 'black'}}>
             <FormGroup sx={{ display: 'flex', flexDirection: 'row' }}>
                 <FormControlLabel name='filter' onClick={ActivateFilter} control={<Checkbox icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} />} label="Ordenar por experiencia" />
                 
@@ -107,23 +108,31 @@ export default function DashBoard() {
                     </FormGroup>
                : false}
                 </FormGroup>
-            </Container>
+            </MaterialContainer>
 
                 <MaterialTable cellNames={headNames} dataBlock={filters} occupationRange='' filter={false} />
-            <Typography variant="h4" component="h2" sx={
-                {
-                    display: 'flex',
-                    textAlign: 'center',
-                    alignItems: 'center',
-                    margin: '10px',
-                }} >
-                Filtrar por Profssões
-            </Typography>
+   
             
             
             
             <MaterialButton route="/" buttonText="Home" />
-        </div>
+        </MaterialBox>
     );
 };
 
+const styles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+        backgroundColor: '#181717',
+        borderRadius: 15,
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+        width: '90%',
+        height: 'fit-content',
+        margin: '0 auto',
+        padding: 20,
+    }
+}
