@@ -1,25 +1,24 @@
 
 import { Avatar } from '@mui/material';
- 
+import { useNavigate } from 'react-router-dom';
 
-export default function MaterialAvatar() {
+interface AvatarProps {
+    children?: React.ReactNode;
+}
+
+export default function MaterialAvatar({ children}:AvatarProps) {
+    const navigate  = useNavigate();
      return (
-         <Avatar sx={Styles.avatar} />
+         <Avatar sx={Styles.avatar} onClick={() => { navigate('/settings') }} variant='circular'>{ children?children:false}</Avatar>
      )   
  }
 
 const Styles = {
     avatar: {
-        width: '70px',
-        height: '70px',
+        padding: '5px',
         backgroundColor: 'orange',
-        color: '#fff',
-        fontSize: '30px',
-        fontWeight: 'bold',
-        marginRight: '20px',
-        '&& @media(min-width:768px)': {
-            width: '60px',
-            height: '60px',
-        }
+        color: 'white',
+        "&:hover": { bgcolor: '#0061fc', cursor: 'pointer' },
     },
+    
 }

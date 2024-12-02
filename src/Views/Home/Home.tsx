@@ -1,19 +1,21 @@
 
 
 import {  Box, Typography } from '@mui/material';
-import AvatarComponent from '../../Components/MaterialAvatar.tsx';
+
 import MaterialGrid from '../../Components/MaterialGrid.tsx';
 import MaterialCard from '../../Components/MaterialCard.tsx';
 import TabPanel from '../../Components/TabPanel.tsx';
 import MaterialBox from '../../Components/MaterialBox.tsx';
+import AppBar from '../../Components/CustomComponents/AppBar.tsx';
 
 
 export default function Home() {
 
 return (
         <MaterialBox styles={Styles.container}>
-            <Box sx={Styles.profileBox}>
-            <AvatarComponent />
+        <Box sx={Styles.profileBox}>
+            <AppBar title="Painel Inicial" id={1} />
+            
         </Box>
         <Typography variant="h3" component="h1" sx={Styles.title}>Painel Inicial</Typography>
             

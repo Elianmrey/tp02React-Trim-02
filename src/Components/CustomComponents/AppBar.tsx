@@ -2,62 +2,59 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
-import { Box } from '../MaterialBox';
+import Box from '../MaterialBox';
 import { IconButton } from '@mui/material';
+import MaterialAvatar from '../MaterialAvatar';
 
-const AppBarComponent = ({...props}) => {
-    const navigate = useNavigate();
-
-    return <AppBar position="static">
-            <Toolbar>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{
-                        position: 'relative',
-                        zIndex: '2'
-                    }}
-                    onClick={() => navigate("/")}
-                >
-                    <ArrowBackIcon />
-                </IconButton>
-                <Typography variant="h6" component="div" sx={{ 
-                    flexGrow: 1,
-                    textAlign: 'center',
-                    position: 'absolute',
-                    left: '0',
-                    width: '100%',
-                    zIndex: '1'
-                }}>
-                    {props.title}
-                </Typography>
-                {
-                    props.id ?   <Box sx={{ 
-                                        display: { xs: 'flex', md: 'none' },
-                                        position: 'absolute',
-                                        right: '1.5em'    
-                                    }}>
-                                    <IconButton
-                                        size="large"
-                                        edge="end"
-                                        color="inherit"
-                                        aria-label="menu"
-                                        sx={{
-                                            position: 'relative',
-                                            zIndex: '2'
-                                        }}
-                                        onClick={props._delete}
-                                    >
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </Box> : null
-                }
-            </Toolbar>
-        </AppBar>
+interface AppBarProps {
+  title: string;
+  id?: number;
 }
 
-export default AppBarComponent;
+export default function MaterialAppBar({ title, id }: AppBarProps) {
+  const navigate = useNavigate();
+
+  return (
+    <AppBar position="static">
+      <Toolbar sx={{ justifyContent: 'space-between', position: 'relative', }} >
+        <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={styles.iconButton} onClick={() => navigate('/')} >
+          <ArrowBackIcon />
+              </IconButton>
+              
+        <Typography variant="h6" component="h2" sx={styles.title} >
+          {title}
+        </Typography>
+        {id ? (
+                  <Box styles={styles.profileBox}>
+            <MaterialAvatar />
+          </Box>
+        ) : null}
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+const styles = {
+    profileBox: {
+        display: { xs: 'flex', md: 'none' },
+        position: 'absolute',
+        right: 10,
+        zIndex: 0,
+        width: '100%',
+        justifyContent: 'flex-end',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+    },
+    title: {
+        flexGrow: 1,
+        textAlign: 'center',
+        position: 'absolute',
+        left: 0, width: '100%',
+        zIndex: 1,
+    }, 
+    iconButton: {
+        position: 'relative',
+        zIndex: 2,
+    }
+}
