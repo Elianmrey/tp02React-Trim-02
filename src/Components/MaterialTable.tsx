@@ -1,6 +1,18 @@
 import { Table, TableRow, TableCell, TableBody, TableHead, Container } from "@mui/material";
 
-export default function MaterialTable({ cellNames, dataBlock, occupationRange, filter }: { cellNames: Array<string>, dataBlock: Array<{ userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string } | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }>, occupationRange: string, filter: boolean }) {
+
+interface MaterialTableProps {
+    cellNames: Array<string>,
+    dataBlock: Array<
+        { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string } |
+        { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }>,
+    occupationRange: string,
+    filter: boolean
+}
+
+
+
+export default function MaterialTable({ cellNames, dataBlock, occupationRange, filter }: MaterialTableProps) {
     return (
         filter ? (
             <Container sx={{ width: '100%', height: '100%', backgroundColor: 'indigo', minWidth: '600px', padding : '20px',borderRadius: '15px' }}>
@@ -60,7 +72,7 @@ const Styles = {
 
 const tableStyles = {
     table:  {
-        minWidth: '50%',
+        minWidth: '100%',
         borderRadius: 10,
     },
 };

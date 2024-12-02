@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { dataBase } from '../Data/Database';
 import MaterialTable from './MaterialTable';
 
-const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, ...other }) => {
+const SectionTabs: React.FC<TabPanelProps> = ({ children, value, index, ...other }) => {
     return (
         <div
             role="tabpanel"
@@ -27,7 +27,7 @@ interface TabPanelProps {
     index: number;
 }
 
-const TabsMUI = () => {
+const TabPanel = () => {
     const [value, setValue] = useState(0);
 
     const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -50,22 +50,22 @@ const TabsMUI = () => {
                 <Tab label="Designers" id="tab-2" aria-controls="tabpanel-2" sx={StyleSheet.tab} />
             </Tabs>
 
-            <TabPanel value={value} index={0}>
+            <SectionTabs value={value} index={0}>
                 <MaterialTable cellNames={headNames} dataBlock={dataBase}  occupationRange='Desenvolvedor' filter/>
 
-            </TabPanel>
+            </SectionTabs>
             
-            <TabPanel value={value} index={1}>
+            <SectionTabs value={value} index={1}>
                 <MaterialTable cellNames={headNames} dataBlock={dataBase} occupationRange='Manager' filter />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
+            </SectionTabs>
+            <SectionTabs value={value} index={2}>
                 <MaterialTable cellNames={headNames} dataBlock={dataBase} occupationRange='Designer' filter />
-            </TabPanel>
+            </SectionTabs>
         </Box>
     );
 };
 
-export default TabsMUI;
+
 
 
 const StyleSheet = {
@@ -79,3 +79,5 @@ const StyleSheet = {
         },
     },
 };
+
+export default TabPanel;

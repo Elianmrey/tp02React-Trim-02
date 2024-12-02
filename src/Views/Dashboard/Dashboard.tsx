@@ -4,7 +4,7 @@ import MaterialButton from "../../Components/MaterialButton.tsx";
 import {  Checkbox, Container, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch, Typography } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
 import { dataBase } from '../../Data/Database'
-import TabPanel from '../../Components/TabPainel.tsx';
+
 import MaterialTable from '../../Components/MaterialTable.tsx';
 
 
@@ -120,7 +120,7 @@ export default function DashBoard() {
                 Filtrar por Profssões
             </Typography>
             
-            <TabPanel />
+            
             
             <MaterialButton route="/" buttonText="Home" />
         </div>
