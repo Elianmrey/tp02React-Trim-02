@@ -1,67 +1,58 @@
-import AddIcon from '@mui/icons-material/Add';
+
 import { useNavigate } from "react-router-dom";
-import { Card, Fab, Grid, Typography } from '..';
+import MaterialTypography from '../MaterialTypography';
+import MaterialFab from '../MaterialFab';
+import { FabProps} from '@mui/material'; 
+import MaterialContainer from '../MaterialContainer';
 
-const CardNewItemComponent = ({Icon, color, title, actionType}) => {
-    const navigate = useNavigate();
 
-    return <Card sx={{
-        overflow: 'visible',
-        borderRadius: '10%'
-    }}>
-                <Grid sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
-                    <Icon 
-                        sx={{
-                            marginTop: '.2em',
-                            fontSize: '3em',
-                            color: color
-                        }}/>
-                    <Typography
-                        sx={{
-                            fontSize: '.85em',
-                            marginTop: '0.5em',
-                            fontWeight: '700',
-                            textAlign: 'center',
-                            wordWrap: "break-word",
-                            width: "90%"
-                        }}
-                    >{title}</Typography>
-                </Grid>
-                <Grid sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
-                    <Typography
-                        sx={{
-                            marginTop: '0.5em',
-                            fontSize: '0.8em',
-                            fontWeight: '400',
-                            color: "#8f8f8f"
-                        }}
-                    >Adicione algo</Typography>
-                </Grid>
-                <Grid sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}>
-                    <Fab
-                        size="small"
-                        sx={{
-                            color: color,
-                            backgroundColor: "#fff",
-                            position: 'relative',
-                            bottom: '-20px'
-                        }}
-                        onClick={() => navigate(`/new/${actionType}`)}
-                    ><AddIcon /></Fab>
-                </Grid>
-            </Card>
+interface CardNewItemProps {
+    icon?: React.ReactNode,
+    color?: FabProps['color'],
+    title?: string,
+    actionInfo?: string,
 }
 
-export default CardNewItemComponent;
+
+export default function CardNewItem ({icon, color, title, actionInfo}: CardNewItemProps) {
+    const navigate = useNavigate();
+
+    return  <MaterialContainer styles={style.titleContainer}>
+        <MaterialFab route="/settings" childrenIcon={icon} styles={style.fabStyle} color={color} onClick={() => navigate(`/new/${actionInfo}`)} />
+        
+                <MaterialTypography styles={style.titleTypography}> {title?title:"Asigne um título"}</MaterialTypography>
+            </MaterialContainer>    
+}
+
+const style = {
+    fab: {
+        width: '70px',
+        height: '70px',
+        bgcolor: 'primary.main',
+        "&:hover": { bgcolor: '#0061fc' },
+    },
+      titleContainer: {
+        width: '200px',
+        height: '200px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px',
+        borderRadius: '10px',
+        backgroundColor: 'white',
+        borderColor: 'orange',
+    },
+    fabStyle: {
+        width: '70px',
+        height: '70px',
+        bgcolor: 'primary.main',       
+        "&:hover": { bgcolor: '#0061fc' },
+    },
+      titleTypography: {
+        textAlign: 'center',
+        fontSize: '20px',
+        color: 'black',
+    },
+}

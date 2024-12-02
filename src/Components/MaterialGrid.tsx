@@ -1,29 +1,19 @@
-import { Grid2, Typography } from "@mui/material";
-import MaterialFab from './MaterialFab.tsx';
+import { Grid2 } from "@mui/material";
+
 import AddIcon from '@mui/icons-material/Add';
-import MaterialContainer from "./MaterialContainer.tsx";
+
+import CardNewItem from './CustomComponents/CardNewItem'; // Ensure the correct path to the CardNewItem component
+
 
 export default function MaterialGrid() {
     return (
         <Grid2 container spacing={3} sx={styles.containerGrid}>
+           <CardNewItem icon={<AddIcon />} color="primary" title="Fralda" actionInfo="Item" />
             
-            <MaterialContainer styles={styles.titleContainer}>
-            <MaterialFab route="/formulary" icon={<AddIcon />} />
-                <Typography sx={styles.title}>Comida</Typography>
-            </MaterialContainer>
-            <MaterialContainer styles={styles.titleContainer}>
-                <MaterialFab route="/dashboard" icon={<AddIcon />} />
-                <Typography sx={styles.title}>Sono</Typography>
-            </MaterialContainer>
-            <MaterialContainer styles={styles.titleContainer}>
-                <MaterialFab route="/settings" icon={<AddIcon />} />
-                <Typography sx={styles.title}>Fralda</Typography>
-             </MaterialContainer>
-           
+            <CardNewItem icon={<AddIcon />} color="primary" title="Amamento" actionInfo="Item" />
             
-                
-           
-        </Grid2>
+            <CardNewItem icon={<AddIcon />} color="primary" title="Sono" actionInfo="Item" />
+       </Grid2>
     )
 }
 
@@ -40,22 +30,4 @@ const styles = {
         backgroundColor: 'orange',
         borderRadius: '10px',
     },
-    titleContainer: {
-        width: '200px',
-        height: '200px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '20px',
-        borderRadius: '10px',
-        backgroundColor: 'white',
-        borderColor: 'orange',
-    },
-    title: {
-        textAlign: 'center',
-        fontSize: '20px',
-        color: 'black',
-    }
 }

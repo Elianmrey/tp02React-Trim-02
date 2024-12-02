@@ -1,21 +1,17 @@
-import { Fab } from "@mui/material";
+import { Fab, FabProps } from "@mui/material";
 import { Link } from "react-router-dom";
 
 
-interface MatrialFabProps {
+interface MatrialFabProps extends FabProps {
     route: string,
-    icon: React.ReactNode
+    childrenIcon: React.ReactNode,
+    styles?: React.CSSProperties,
+    color?: FabProps['color']
 }
 
-export default function MatrialFab({route, icon}: MatrialFabProps) {
-    return <Link to={route}><Fab aria-label="add" color="primary" sx={Styles.fab}>{icon}</Fab></Link>;
+export default function MatrialFab({route, childrenIcon,styles,color}: MatrialFabProps) {
+    return <Link to={route}><Fab aria-label="add" color={color} sx={styles}>
+        {childrenIcon}
+    </Fab></Link>;
 }
 
-const Styles = {
-    fab: {
-        width: '70px',
-        height: '70px',
-        bgcolor: 'primary.main',       
-        "&:hover": { bgcolor: '#001E36' },
-         }
-};
