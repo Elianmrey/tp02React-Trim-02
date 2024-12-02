@@ -12,11 +12,11 @@ export default function MaterialGrid() {
             </MaterialContainer>
             <MaterialContainer styles={styles.titleContainer}>
                 <MaterialFab route="/dashboard" icon={<AddIcon />} />
-                <Typography sx={styles.title}>Beber</Typography>
+                <Typography sx={styles.title}>Sono</Typography>
             </MaterialContainer>
             <MaterialContainer styles={styles.titleContainer}>
                 <MaterialFab route="/settings" icon={<AddIcon />} />
-                <Typography sx={styles.title}>Jogar</Typography>
+                <Typography sx={styles.title}>Fralda</Typography>
              </MaterialContainer>
            
             
