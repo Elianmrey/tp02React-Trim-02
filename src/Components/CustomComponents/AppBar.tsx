@@ -4,7 +4,8 @@ import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
-import { IconButton, Box } from '..';
+import { Box } from '../MaterialBox';
+import { IconButton } from '@mui/material';
 
 const AppBarComponent = ({...props}) => {
     const navigate = useNavigate();
