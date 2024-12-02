@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SaveToLocalStrg } from "../../Core/CoreFunctions.tsx";
+import { SaveToLocalStrg } from "../../Core/Corefunctions.tsx";
 import { Link, redirect } from "react-router-dom";
 import { Typography } from "@mui/material";
 import IconButton from '@mui/material/IconButton';

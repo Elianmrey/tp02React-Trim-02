@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, InputBase } from "@mui/material";
 import MaterialButton from "../../Components/MaterialButton";
-import { GetFromLocalStrg, SaveToLocalStrg } from '../../Core/CoreFunctions';
+import { GetFromLocalStrg, SaveToLocalStrg } from '../../Core/Corefunctions';
 import { useAppContext } from '../../../Context/Context';
 
 

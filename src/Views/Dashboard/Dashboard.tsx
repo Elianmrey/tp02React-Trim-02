@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
-import {  Checkbox, FormControlLabel, FormGroup,  Radio,  RadioGroup,  Switch } from '@mui/material';
+import {  Checkbox, FormControlLabel, FormGroup,  Radio,  RadioGroup } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
 import { dataBase } from '../../Data/Database'
 
 import MaterialTable from '../../Components/MaterialTable.tsx';
 import MaterialContainer from '../../Components/MaterialContainer.tsx';
 import MaterialBox from '../../Components/MaterialBox.tsx';
+import MaterialSwitch from '../../Components/MaterialSwitch.tsx';
 
 
 export default function DashBoard() {
@@ -103,8 +104,9 @@ export default function DashBoard() {
                             <Radio onClick={() => (Ordenation('desc', [...dataBase]))} icon={<ArrowDownwardOutlined/>}   checkedIcon={<ArrowDownward />} sx={{ color: 'black' }} value="Older" name="Older" /> Mais antigos
                             <Radio  onClick={() =>(Ordenation('asc',dataBase))}  icon={<ArrowUpwardOutlined/>}   checkedIcon={<ArrowUpward/>} sx={{ color: 'black' }} value="Newer" name="Newer" /> Mais recentes
                             </RadioGroup>
-                        <FormControlLabel control={<Switch defaultChecked={checked} icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} checked={checked ? false : true} />} label="Mais de 5 anos" sx={{ marginLeft: '10px' }} onChange={() => { CheckedSwitch(); FilterByExperience() }} />
-                       
+
+                        <MaterialSwitch defaultChecked={checked} icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} checked={checked ? false : true} label="Mais de 5 anos" style={{ marginLeft: '10px' }} onChange={() => { CheckedSwitch(); FilterByExperience() }} />
+                    
                     </FormGroup>
                : false}
                 </FormGroup>

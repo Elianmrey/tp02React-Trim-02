@@ -6,6 +6,7 @@ import MaterialContainer from "./MaterialContainer.tsx";
 export default function MaterialGrid() {
     return (
         <Grid2 container spacing={3} sx={styles.containerGrid}>
+            
             <MaterialContainer styles={styles.titleContainer}>
             <MaterialFab route="/formulary" icon={<AddIcon />} />
                 <Typography sx={styles.title}>Comida</Typography>
