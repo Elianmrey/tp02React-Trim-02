@@ -1,7 +1,7 @@
 import styles from './StyleFormulary.module.scss';
 import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
-import { Box, Button, Container, FormGroup, Input, InputLabel, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, FormGroup, Input, InputLabel, Typography } from '@mui/material';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'; 
@@ -9,6 +9,7 @@ import { dataBase } from '../../Data/Database.tsx';
 import {addUser } from '../../Services/DataService.tsx';
 import { DatePicker } from '@mui/x-date-pickers-pro';
 import dayjs from 'dayjs';
+import MaterialTextField from '../../Components/MaterialTextField.tsx';
 
 
 export default function Formulary() {
@@ -122,7 +123,7 @@ export default function Formulary() {
                 <Input name='experience' type="text" placeholder="Digite o tempo de experiência" sx={MaterialStyles.input}  value={info?.experience} onChange={HandleChange }/>
 
                 <InputLabel htmlFor="description" sx={MaterialStyles.inputLabel}>Descrição:</InputLabel>                
-              <TextField name="description" placeholder="Digite o tempo de experiência" sx={MaterialStyles.textField} value={info?.description} onChange={HandleChange} />
+                                <MaterialTextField name="description" placeholder="Digite o tempo de experiência" styles={MaterialStyles.textField} value={info?.description} onChange={HandleChange} />
                 
                 <Button type='submit' value='Enviar'  sx={MaterialStyles.button}>Enviar</Button>
                             </FormGroup>
