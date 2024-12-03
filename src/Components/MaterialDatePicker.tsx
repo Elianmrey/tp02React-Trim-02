@@ -1,8 +1,21 @@
 
 import { DateTimePicker } from '@mui/x-date-pickers-pro';
 import MaterialBox from './MaterialBox.tsx';
+import { adjustDateTimeForTimezone, handleInputChange } from "../Core/Corefunctions";
+import { useAppContext } from '../../Context/Context.tsx';
+import dayjs from 'dayjs';
+interface MaterialDatePickerProps {
+    data: {
+        start_date?: Date | null;
+        end_date?: Date | null;
+     },
+     setData: (data: object) => void
+ }
 
-export default function MaterialDatePicker(){ 
+export default function MaterialDatePicker({ data }: MaterialDatePickerProps) { 
+    
+    const { translate } = useAppContext();
+
     return (
         <MaterialBox styles={styles.container}>
                <DateTimePicker

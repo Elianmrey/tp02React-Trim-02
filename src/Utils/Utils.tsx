@@ -1,5 +1,5 @@
 interface Data {
-    [key: string]: any; // Pode ser refinado conforme os campos esperados no objeto `data`
+    [key: string]: string;
 }
 
 type SetDataFunction = (data: Data) => void;
