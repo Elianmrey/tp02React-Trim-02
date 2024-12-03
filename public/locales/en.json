@@ -1,5 +1,6 @@
 {
   "welcome": "Welcome",
+  "initial-panel": "Initial Panel",
   "login": "Login",
   "register": "Create account",
   "sign-in": "Sign In",
@@ -54,5 +55,9 @@
   "min": "Min.",
   "from": "From",
   "to": "To",
-  "days": "Day(s)"
+  "days": "Day(s)",
+  "growth": "Growth",
+  "growth-height": "Height",
+   "growth-age": "Age",
+   "months": "Month(s)"
 }

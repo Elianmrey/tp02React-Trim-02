@@ -13,7 +13,9 @@ interface ItemListProps {
     items: Array<{ id: number; name: string; action_type: number }>;
 }
 
-export default function ItemList({ items, ...props }: ItemListProps) {
+export default function CustomItemList({ items, ...props }: ItemListProps) {
+
+
     const navigate = useNavigate();
     const { translate } = useAppContext();
 

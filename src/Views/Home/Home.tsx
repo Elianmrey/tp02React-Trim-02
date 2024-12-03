@@ -1,29 +1,33 @@
-
-
-import {  Box, Typography } from '@mui/material';
-
 import MaterialGrid from '../../Components/MaterialGrid.tsx';
 import MaterialCard from '../../Components/MaterialCard.tsx';
 import TabPanel from '../../Components/TabPanel.tsx';
 import MaterialBox from '../../Components/MaterialBox.tsx';
 import AppBar from '../../Components/CustomComponents/AppBar.tsx';
 import { useAppContext } from '../../../Context/Context.tsx';
+import MaterialTypography from './../../Components/MaterialTypography';
+import {baby} from '../../Constants/Data';
+import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
+
 
 export default function Home() {
 
     const { translate} = useAppContext();
 
 return (
-        <MaterialBox styles={Styles.container}>
-        <Box sx={Styles.profileBox}>
-            <AppBar title="Painel Inicial" id={1} />
+    <MaterialBox styles={Styles.container}>
+        <MaterialBox styles={Styles.profileBox}>
+            <AppBar title={ translate("initial-panel")} home={true} id={1}/>
+        </MaterialBox>
+        
+        <MaterialTypography variant="h5" component="h1" styles={Styles.title}>{translate('welcome') }</MaterialTypography>
             
-        </Box>
-        <Typography variant="h3" component="h1" sx={Styles.title}>{translate('welcome') }</Typography>
-            
-        <MaterialGrid />
+        <MaterialGrid baby={baby} />
         <MaterialCard styles={Styles.card}>
-        <TabPanel />
+        
+        
+            {/* <CustomItemList items={ } /> */}
+        
+        
         </MaterialCard>
         
     
@@ -70,7 +74,6 @@ const Styles = {
     },
     },
     title: {
-        
         fontWeight: 'bold',
         marginBottom: '20px',
         color: '#FFA507',

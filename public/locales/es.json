@@ -1,6 +1,7 @@
 {
   "welcome": "Bienvenido",
-  "login": "Iniciar sesión",
+"initial-panel": "Panel Inicial",
+"login": "Iniciar sesión",
   "register": "Crear cuenta",
   "sign-in": "Entrar",
   "sign-up": "Registrarse",
@@ -54,5 +55,10 @@
   "min": "Min.",
   "from": "De",
   "to": "Hasta",
-  "days": "Día(s)"
+  "days": "Día(s)", 
+   "growth": "Crecimiento",
+   "growth-weight": "Peso",
+   "growth-height": "Altura",
+   "growth-age": "Edad",
+   "months": "Mes(es)"
 }

@@ -1,6 +1,9 @@
 import { Container, SxProps } from "@mui/material";
 
-interface MaterialContainerProps { children: React.ReactNode, styles: SxProps }
+interface MaterialContainerProps {
+    children: React.ReactNode,
+    styles: SxProps
+}
 
 
 export default function MaterialContainer({ children, styles }: MaterialContainerProps) {

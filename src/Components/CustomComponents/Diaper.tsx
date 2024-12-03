@@ -3,7 +3,8 @@ import { Button, Grid2, TextField } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { handleInputChange, selectItem } from '../../Utils/Utils.tsx';
 import { adjustDateTimeForTimezone } from "../../Utils/Core.tsx";
-
+import dayjs from 'dayjs';
+import MaterialDatePicker from "../MaterialDatePicker.tsx";
 interface DiaperProps {
     data: {
         start_date?: Date | null;
@@ -29,19 +30,7 @@ const Diaper = ({ data, setData, translate }: DiaperProps) => {
     return (
         <Grid2 container spacing={2}>
             <Grid2 item xs={12}>
-                <DateTimePicker
-                    value={data?.start_date ? adjustDateTimeForTimezone(data.start_date) : null}
-                    label={translate("data-hour-start")}
-                    name="start_date"
-                    fullWidth
-                    ampm={false}
-                    format="DD/MM/YYYY HH:mm"
-                    onChange={(value: Date | null) => {
-                        if (value) {
-                            handleInputChange("start_date", value, data, setData);
-                        }
-                    }}
-                />
+               <MaterialDatePicker data={data} setData={setData} translate={translate} />
             </Grid2>
             <Grid2 item xs={12}>
                 <Button

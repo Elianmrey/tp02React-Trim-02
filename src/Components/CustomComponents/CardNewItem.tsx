@@ -11,16 +11,18 @@ interface CardNewItemProps {
     color?: FabProps['color'],
     title?: string,
     actionInfo?: string,
+    representIcon?: React.ReactNode
 }
 
 
-export default function CardNewItem ({icon, color, title, actionInfo}: CardNewItemProps) {
+export default function CardNewItem ({icon, color, title, actionInfo, representIcon}: CardNewItemProps) {
     const navigate = useNavigate();
 
-    return  <MaterialContainer styles={style.titleContainer}>
+    return <MaterialContainer styles={style.titleContainer}>
+        { representIcon}
+        <MaterialTypography styles={style.titleTypography}> {title ? title : "Asigne um título"}</MaterialTypography>
         <MaterialFab route="/settings" childrenIcon={icon} styles={style.fabStyle} color={color} onClick={() => navigate(`/new/${actionInfo}`)} />
-        
-                <MaterialTypography styles={style.titleTypography}> {title?title:"Asigne um título"}</MaterialTypography>
+              
             </MaterialContainer>    
 }
 
@@ -51,8 +53,9 @@ const style = {
         "&:hover": { bgcolor: '#0061fc' },
     },
       titleTypography: {
-        textAlign: 'center',
-        fontSize: '20px',
-        color: 'black',
+      textAlign: 'center',
+      fontSize: '1rem',
+      color: 'black',
+      fontWeight: 'bold',
     },
 }
