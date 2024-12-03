@@ -6,12 +6,14 @@ import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
 import CribIcon from '@mui/icons-material/Crib';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-import SpaIcon from '@mui/icons-material/Spa';
 import { useAppContext } from '../../../Context/Context';
-
+import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
 interface ItemListProps {
-    items: Array<{ id: number; name: string; action_type: number }>;
+    items: Array<{ id: number; title: string; actionType: number }>;
 }
+
+
 
 export default function CustomItemList({ items, ...props }: ItemListProps) {
 
@@ -27,13 +29,13 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
     function getIcon(actionTypeScale: number) {
         switch (actionTypeScale) {
             case 1:
-                return <CribIcon />;
+                return <BedtimeIcon sx={{ color: '#FFB300' }}/>;
             case 2:
-                return <RestaurantMenuIcon />;
+                return <RestaurantMenuIcon  sx={{ color: '#06B024' }}/>;
             case 3:
-                return <SpaIcon />;
+                return <BabyChangingStationIcon  sx={{ color: 'indigo' }}/>;
             default:
-                return <RestaurantMenuIcon />;
+                return <RestaurantMenuIcon sx={{ color: '#06B024'  }}/>;
         }
     }
 
@@ -45,32 +47,40 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
 
     const typeColor: { [key: number]: string } = {
         1: "#4b10a9",
-        2: "#47c869",
+        2: "lightgreen",
         3: "#f4cc1d",
     };
 
-    const generateSubtitle = (item: { id: number; name: string; action_type: number }, translate: (key: string) => string) => {
-        return `${translate('Name')}: ${item.name}`;
+
+    const generateSubtitle = (item: { title: string;}, translate: (key: string) => string) => {
+        return `${translate('action')}: ${item.title}`;
     };
 
+    /*   {
+        title: 'Sono',
+        actionType: 1,
+        Icon: CribIcon,
+        color: '#4b10a9'
+    }
+ */
     return (
         <List {...props}>
             {items.map((item, index) => {
-                const typeStr = actionTypeListToInt[item.action_type];
+                const typeStr = actionTypeListToInt[item.actionType];
                 return (
                     <ListItem
                         key={item.id}
                         sx={{
-                            backgroundColor: "#fff",
+                            backgroundColor: "#ccc",
                             borderRadius: "60px",
                             marginTop: "1em",
                         }}
                         id={`new-item-list-${index}`}
-                        onClick={() => navigate(`/${item.action_type}/${item.id}`)}
+                        onClick={() => navigate(`/${item.actionType}/${item.id}`)}
                     >
                         <ListItemAvatar>
-                            <Avatar sx={{ bgcolor: typeColor[item.action_type] }}>
-                                {getIcon(item.action_type)}
+                            <Avatar sx={{ bgcolor: typeColor[item.actionType] }}>
+                                {getIcon(item.actionType)}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText

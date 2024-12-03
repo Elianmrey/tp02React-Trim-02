@@ -1,13 +1,13 @@
 import MaterialGrid from '../../Components/MaterialGrid.tsx';
 import MaterialCard from '../../Components/MaterialCard.tsx';
-import TabPanel from '../../Components/TabPanel.tsx';
+// import TabPanel from '../../Components/TabPanel.tsx';
 import MaterialBox from '../../Components/MaterialBox.tsx';
 import AppBar from '../../Components/CustomComponents/AppBar.tsx';
 import { useAppContext } from '../../../Context/Context.tsx';
 import MaterialTypography from './../../Components/MaterialTypography';
 import {baby} from '../../Constants/Data';
 import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
-
+import { routines } from '../../Constants/RoutinesInfo.tsx'
 
 export default function Home() {
 
@@ -25,7 +25,7 @@ return (
         <MaterialCard styles={Styles.card}>
         
         
-            {/* <CustomItemList items={ } /> */}
+            <CustomItemList items={routines } />
         
         
         </MaterialCard>
@@ -60,18 +60,25 @@ const Styles = {
         borderColor: 'grey',
         borderWidth: '2px',
         borderStyle: 'solid',
-        
+        margin: '10px auto',
     },
-    card: {
-        width: '100%',
-        height: 'fit-content',
-        padding: '10px',
-        boxShadow: '0px 0px 5px #999',
-        transition: 'box-shadow 0.3s ease-in-out',
-        '&:hover': {
-        boxShadow: '0px 0px 10px #FFA507',
-        transition: 'box-shadow 0.3s ease-in-out', 
-    },
+   card: {
+    width: '96%',
+    height: 'fit-content',
+    padding: '10px',
+    boxShadow: '0px 0px 5px #999',
+    transition: 'box-shadow 0.3s ease-in-out',
+    borderRadius: '10px',
+    overflowY: 'scroll',
+       margin: '10px auto',
+          
+    '&::-webkit-scrollbar': {
+            display: 'none', 
+        },
+        '&::-moz-scrollbar': {
+            display: 'none',
+        },
+        scrollbarWidth: 'none', 
     },
     title: {
         fontWeight: 'bold',
