@@ -7,9 +7,11 @@ import MaterialCard from '../../Components/MaterialCard.tsx';
 import TabPanel from '../../Components/TabPanel.tsx';
 import MaterialBox from '../../Components/MaterialBox.tsx';
 import AppBar from '../../Components/CustomComponents/AppBar.tsx';
-
+import { useAppContext } from '../../../Context/Context.tsx';
 
 export default function Home() {
+
+    const { translate } = useAppContext();
 
 return (
         <MaterialBox styles={Styles.container}>
@@ -17,7 +19,7 @@ return (
             <AppBar title="Painel Inicial" id={1} />
             
         </Box>
-        <Typography variant="h3" component="h1" sx={Styles.title}>Painel Inicial</Typography>
+        <Typography variant="h3" component="h1" sx={Styles.title}>{translate('welcome') }</Typography>
             
         <MaterialGrid />
         <MaterialCard styles={Styles.card}>

@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "Context/Context.tsx"]
+  "include": ["src", "Context/Context.tsx", "i18n"]
 }
