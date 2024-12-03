@@ -4,8 +4,10 @@ import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import Box from '../MaterialBox';
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import MaterialAvatar from '../MaterialAvatar';
+import TranslateIcon from '@mui/icons-material/Translate';
+import {useAppContext } from '../../../Context/Context';
 
 interface AppBarProps {
   title: string;
@@ -14,7 +16,7 @@ interface AppBarProps {
 
 export default function MaterialAppBar({ title, id }: AppBarProps) {
   const navigate = useNavigate();
-
+  const { changeLanguageInteractive } = useAppContext();
   return (
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: 'space-between', position: 'relative', }} >
@@ -26,7 +28,8 @@ export default function MaterialAppBar({ title, id }: AppBarProps) {
           {title}
         </Typography>
         {id ? (
-                  <Box styles={styles.profileBox}>
+          <Box styles={styles.profileBox}>
+            <Button  onClick={() => changeLanguageInteractive()} sx={styles.languageButton}><TranslateIcon sx={{ color: 'white' }}/></Button>
             <MaterialAvatar />
           </Box>
         ) : null}
@@ -55,6 +58,12 @@ const styles = {
     }, 
     iconButton: {
         position: 'relative',
-        zIndex: 2,
-    }
+      zIndex: 2,
+  },
+  languageButton: {
+    bgcolor: '#1976D2',
+    cursor: 'pointer',
+    padding: '5px 10px',
+    marginRight: '10px',
+  }
 }

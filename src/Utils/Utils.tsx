@@ -40,17 +40,17 @@ const getTitle = (action_type: string): string => {
 };
 
 const validateDiaper = (data: Data): string[] => {
-    // Retorna um array de strings contendo os erros, se houver
+  
     return [];
 };
 
 const validateSleep = (data: Data): string[] => {
-    // Retorna um array de strings contendo os erros, se houver
+   
     return [];
 };
 
 const validateEat = (data: Data): string[] => {
-    // Retorna um array de strings contendo os erros, se houver
+  
     return [];
 };
 

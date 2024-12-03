@@ -11,7 +11,7 @@ import { useAppContext } from '../../../Context/Context.tsx';
 
 export default function Home() {
 
-    const { translate } = useAppContext();
+    const { translate} = useAppContext();
 
 return (
         <MaterialBox styles={Styles.container}>
@@ -75,9 +75,5 @@ const Styles = {
         marginBottom: '20px',
         color: '#FFA507',
     },
-    "body": {
-        width: '100%',
-       
-       
-    }
+
 }

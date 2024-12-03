@@ -42,6 +42,17 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         }
     }, [])
 
+    function changeLanguageInteractive()
+    {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage === 'pt') {
+            changeLanguage('en');
+        } else if (storedLanguage === 'en') {
+            changeLanguage('es');
+        }else if ( storedLanguage === 'es') {
+            changeLanguage('pt');
+        }
+    }
     //Fim i18n
 
     function ShowAlert(message: string, severity: 'success' | 'error' | 'warning' | 'info') {
@@ -60,6 +71,7 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         handleCloseSnackbar,
         changeLanguage,
         translate,
+        changeLanguageInteractive
     };
 
     return (
@@ -77,6 +89,7 @@ interface AppContextInterface {
     ShowAlert: (message: string, severity: 'success' | 'error' | 'warning' | 'info') => void;
     snackbar: { open: boolean, message: string, severity: 'success' | 'error' | 'warning' | 'info' };
     handleCloseSnackbar: () => void;
+    changeLanguageInteractive: () => void
     
 }
 // eslint-disable-next-line react-refresh/only-export-components
