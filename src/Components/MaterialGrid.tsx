@@ -25,7 +25,7 @@ interface MaterialGridProps {
 
 
 export default function MaterialGrid({ baby }: MaterialGridProps) {
-// const navigate = useNavigate();
+
     const { translate } = useAppContext();
     return (
         <Grid2 container spacing={3} sx={styles.containerGrid}>
@@ -53,9 +53,9 @@ export default function MaterialGrid({ baby }: MaterialGridProps) {
             </MaterialContainer>
 
             <MaterialContainer styles={styles.containerCards}>
-            <CardNewItem icon={<AddIcon />} color="primary" title={translate('diaper')} actionInfo="Item" representIcon={<BabyChangingStationIcon sx={styles.iconSetFirst}/>} />
-             <CardNewItem icon={<AddIcon />} color="primary" title={translate('eat')} actionInfo="Item" representIcon={<LocalDiningIcon sx={styles.iconSetSecond}/>}/>
-                <CardNewItem icon={<AddIcon />} color="primary" title={translate('sleep')} actionInfo="Item" representIcon={<BedtimeIcon sx={styles.iconSetThird} />}/>
+            <CardNewItem icon={<AddIcon />} color="primary" title={translate('diaper')} actionInfo="Item" representIcon={<BabyChangingStationIcon  sx={styles.iconSetFirst}/>} route="/new/diaper" />
+             <CardNewItem icon={<AddIcon />} color="primary" title={translate('eat')} actionInfo="Item" representIcon={<LocalDiningIcon sx={styles.iconSetSecond}/>} route="/new/eat"/>
+                <CardNewItem icon={<AddIcon />} color="primary" title={translate('sleep')} actionInfo="Item" representIcon={<BedtimeIcon sx={styles.iconSetThird} />} route="/new/sleep"/>
             </MaterialContainer>
 
        </Grid2>

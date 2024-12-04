@@ -4,5 +4,3 @@ export const baby = {
     height: '52 cm',
     weight: '10 kg',
 }
-
- 

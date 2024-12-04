@@ -7,7 +7,7 @@ import SignUp from "../Views/SignUp/SignUp.tsx";
 import SignIn from "../Views/SignIn/SignIn.tsx";
 import Dashboard from "../Views/Dashboard/Dashboard.tsx";
 import Notfound from "../Views/NotFound/NotFound.tsx";
-import Formulary from "../Views/Formulary/Formulary.tsx";
+import DynamicFormView from "../Views/Formulary/Formulary.tsx";
 
 const routes = createBrowserRouter(
     createRoutesFromElements(
@@ -17,7 +17,7 @@ const routes = createBrowserRouter(
                 <Route path="/" index element={<Home />} loader={() => HandleVerificationProtected()} />
                 <Route path="/settings" element={<Settings />} loader={() => HandleVerificationProtected()} />
                 <Route path="/dashboard" element={<Dashboard />} loader={() => HandleVerificationProtected()} />
-                <Route path="/formulary" element={<Formulary />} loader={() => HandleVerificationProtected()} />
+                <Route path="/new/:action" element={<DynamicFormView />} loader={() => HandleVerificationProtected()} />
                 <Route path="/*" element={<Notfound />} loader={() => HandleVerificationProtected()} />
             </Route>
 

@@ -30,7 +30,7 @@ export default function MaterialAppBar({ title, id, home }: AppBarProps) {
         </Typography>
         {id ? (
           <Box styles={styles.profileBox}>
-            <Button  onClick={() => changeLanguageInteractive()} sx={styles.languageButton}><TranslateIcon sx={{ color: 'white' }}/></Button>
+            <IconButton  onClick={() => changeLanguageInteractive()} sx={styles.languageButton}><TranslateIcon sx={{ color: 'white' }}/></IconButton>
             <MaterialAvatar />
           </Box>
         ) : null}
@@ -71,7 +71,7 @@ const styles = {
   languageButton: {
     bgcolor: '#1976D2',
     cursor: 'pointer',
-    padding: '5px 10px',
-    marginRight: '10px',
+    padding: '10px 10px',
+    marginRight: '5px',
   }
 }

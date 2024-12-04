@@ -11,17 +11,18 @@ interface CardNewItemProps {
     color?: FabProps['color'],
     title?: string,
     actionInfo?: string,
-    representIcon?: React.ReactNode
+    representIcon?: React.ReactNode,
+    route?: string
 }
 
 
-export default function CardNewItem ({icon, color, title, actionInfo, representIcon}: CardNewItemProps) {
+export default function CardNewItem ({icon, color, title, actionInfo, representIcon,route}: CardNewItemProps) {
     const navigate = useNavigate();
 
     return <MaterialContainer styles={style.titleContainer}>
         { representIcon}
         <MaterialTypography styles={style.titleTypography}> {title ? title : "Asigne um título"}</MaterialTypography>
-        <MaterialFab route="/settings" childrenIcon={icon} styles={style.fabStyle} color={color} onClick={() => navigate(`/new/${actionInfo}`)} />
+        <MaterialFab route={route ?? "#"} childrenIcon={icon} styles={style.fabStyle} color={color} onClick={() => navigate(`/new/${actionInfo}`)} />
               
             </MaterialContainer>    
 }

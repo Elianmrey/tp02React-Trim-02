@@ -10,7 +10,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-body{
-  
+
+body {
+
   width: 100%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  body {
+    width: 600px;
+  }
 }

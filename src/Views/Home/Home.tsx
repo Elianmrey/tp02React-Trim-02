@@ -8,7 +8,7 @@ import MaterialTypography from './../../Components/MaterialTypography';
 import {baby} from '../../Constants/Data';
 import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
 import { routines } from '../../Constants/RoutinesInfo.tsx'
-import Eat from '../../Components/CustomComponents/Eat.tsx';
+
 
 export default function Home() {
 

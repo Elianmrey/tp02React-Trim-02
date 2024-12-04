@@ -60,5 +60,8 @@
   "growth-height": "Height",
    "growth-age": "Age",
    "months": "Month(s)",
-   "action": "Action"
+   "action": "Action",
+   "formulary": "Formulary",
+   "start-date": "Start Date",
+   "end-date": "End Date"
 }

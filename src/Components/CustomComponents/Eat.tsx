@@ -17,16 +17,28 @@ interface EatProps {
 
 const Eat: React.FC<EatProps> = ({ data, setData, translate }) => {
   const fields: {
-    name: string;
-    label: string;
-    type: "number" | "select" | "text" | "date";
-    options?: { value: string | number; label: string; }[];
-  }[] = [
-      { name: "quantity", label: translate("Quantidade"), type: "text" },
-      { name: "start_date", label: translate("Data Inicial"), type: "date" },
-      { name: "end_date", label: translate("Data Final"), type: "date" },
-      { name: "observation", label: translate("Observação"), type: "text" },
-    ];
+  name: string;
+  label: string;
+  type: "number" | "select" | "text" | "date";
+  options?: { value: string | number; label: string }[];
+}[] = [
+  { name: "type", label: translate("Tipo"), type: "select", options: [
+      { value: 1, label: translate("Mamadeira") },
+      { value: 2, label: translate("Seio") },
+    ] 
+  },
+  { name: "side", label: translate("Lado"), type: "select", options: [
+      { value: 1, label: translate("Esquerdo") },
+      { value: 2, label: translate("Direito") },
+      { value: 3, label: translate("Ambos") },
+    ] 
+  },
+  { name: "quantity", label: translate("Quantidade (ml)"), type: "number" },
+  { name: "start_date", label: translate("Data Inicial"), type: "date" },
+  { name: "end_date", label: translate("Data Final"), type: "date" },
+  { name: "observation", label: translate("Observação"), type: "text" },
+];
+
 
   const handleSubmit = () => {
     console.log("Submitted data:", data);

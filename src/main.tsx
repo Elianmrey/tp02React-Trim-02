@@ -3,8 +3,13 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import '../i18n/i18n.tsx'
 import './mainStyle.scss'
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+     <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App />
+    </LocalizationProvider>
   </StrictMode>,
 )

@@ -61,5 +61,8 @@
    "growth-height": "Altura",
    "growth-age": "Idade",
    "months": "Mes(es)",
-   "action": "Ação"
+   "action": "Ação",
+   "formulary": "Formulário",
+   "start-date": "Data de inicio",
+   "end-date": "Data de finalização"
 }
