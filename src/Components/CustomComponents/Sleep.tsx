@@ -1,47 +1,33 @@
-import { useEffect } from "react";
-import { DateTimePicker, Grid, TextField } from "..";
-import { handleInputChange } from "../../utils/action";
-import { adjustDateTimeForTimezone } from "../../utils/core";
+import FormComponent from "./Form";
 
-const Sleep = ({ data, setData, translate }) => {
-  useEffect(() => {
-    setData({...data, 'action_type': 1})  
-  }, [])
+interface SleepProps {
+  data: {
+    start_date?: string | undefined;
+    end_date?: string | undefined;
+    observation?: string | undefined;
+    action_type?: number | undefined;
+  };
+  setData: (data: object) => void;
+  translate: (key: string) => string;
+}
 
-  return  <Grid container={true} spacing={2}>
-              <Grid item={true} size={{ xs: 12 }}>
-                <DateTimePicker
-                  value={data?.start_date ? adjustDateTimeForTimezone(data?.start_date) : null}
-                  label={translate("data-hour-start")}
-                  name="start_date"
-                  fullWidth={true}
-                  ampm={false}
-                  format="DD/MM/YYYY HH:mm"
-                  onChange={(value) => {handleInputChange('start_date', new Date(value.toString()), data, setData)}}
-                />
-              </Grid>
-              <Grid item={true} size={{ xs: 12 }}>
-                <DateTimePicker
-                  value={data?.end_date ? adjustDateTimeForTimezone(data?.end_date) : null}
-                  label={translate("data-hour-end")}
-                  name="end_date"
-                  fullWidth={true}
-                  ampm={false}
-                  format="DD/MM/YYYY HH:mm"
-                  onChange={(value) => {handleInputChange('end_date', new Date(value.toString()), data, setData)}}
-                />
-              </Grid>
-              <Grid item={true} size={{ xs: 12 }}>
-                <TextField
-                  value={data?.observation ? data.observation : ""}
-                  label={translate("observation")}
-                  onChange={(event) => {handleInputChange('observation', event.target.value, data, setData)}}
-                  name="observation"
-                  rows={6}
-                  fullWidth={true}
-                  multiline={true}/>
-              </Grid>
-            </Grid>
+export default function Sleep({ data, setData, translate }: SleepProps) {
+
+const fields: {
+  name: string;
+  label: string;
+  type: "number" | "date" | "text" | "select";
+  options?: { value: string | number; label: string; }[];
+}[] = [
+  { name: "start_date", label: translate("Start Date"), type: "date" },
+  { name: "end_date", label: translate("End Date"), type: "date" },
+  { name: "observation", label: translate("Observation"), type: "text" },
+];
+  const handleSubmit = () => {
+    console.log("Submitted data:", data);
+  };
+
+  return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;
 };
 
-export default Sleep;
+

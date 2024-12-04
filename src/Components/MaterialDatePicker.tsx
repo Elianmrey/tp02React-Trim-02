@@ -1,38 +1,39 @@
 
 import { DateTimePicker } from '@mui/x-date-pickers-pro';
 import MaterialBox from './MaterialBox.tsx';
-import { adjustDateTimeForTimezone, handleInputChange } from "../Core/Corefunctions";
+import {  handleInputChange } from "../Utils/Utils.tsx";
 import { useAppContext } from '../../Context/Context.tsx';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 interface MaterialDatePickerProps {
     data: {
-        start_date?: Date | null;
-        end_date?: Date | null;
-     },
-     setData: (data: object) => void
- }
+        start_date?: Date | null | undefined,
+        end_date?: Date | null | undefined,
+    },
+    setData: (data: object) => void
+}
 
-export default function MaterialDatePicker({ data }: MaterialDatePickerProps) { 
-    
+export default function MaterialDatePicker({ data, setData }: MaterialDatePickerProps) {
+
     const { translate } = useAppContext();
 
     return (
         <MaterialBox styles={styles.container}>
-               <DateTimePicker
-    value={data?.start_date ? adjustDateTimeForTimezone(dayjs(data.start_date)) : null}
-                    label={translate("data-hour-start")}
-                    name="start_date"
-                    fullWidth
-                    ampm={false}
-                    format="DD/MM/YYYY HH:mm"
-                    onChange={(value: Date | null) => {
-                        if (value) {
-                            handleInputChange("start_date", value, data, setData);
-                        }
-                    }}
-                />
+            
+            <DateTimePicker
+                value={data?.start_date ? dayjs(data.start_date).format('DD/MM/YYYY HH:mm') : null}
+                label={translate("data-hour-start")}
+                name="start_date"
+                sx={{ width: '100%' }}
+                ampm={false}
+                format="DD/MM/YYYY HH:mm"
+                onChange={(value: Dayjs | null) => {
+                    if (value) {
+                        handleInputChange("start_date", value.toDate(), data, setData);
+                    }
+                }}
+            />
         </MaterialBox>
-     
+
     );
 }
 const styles = {

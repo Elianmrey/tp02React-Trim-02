@@ -6,7 +6,7 @@ type SetDataFunction = (data: Data) => void;
 
 const handleInputChange = (
     field: string,
-    value: any, // Substitua por um tipo específico se souber o valor esperado
+    value: Date,
     data: Data,
     setData: SetDataFunction
 ): void => {
@@ -14,7 +14,7 @@ const handleInputChange = (
 };
 
 const selectItem = (
-    value: any, // Substitua por um tipo específico
+    value: Date, 
     key: string,
     data: Data,
     setData: SetDataFunction
@@ -22,9 +22,7 @@ const selectItem = (
     setData({ ...data, [key]: value });
 };
 
-const generateSubtitle = (item: Data, translate: (key: string) => string): string => {
-    return "oi";
-};
+
 
 const getTitle = (action_type: string): string => {
     switch (action_type) {
@@ -40,18 +38,27 @@ const getTitle = (action_type: string): string => {
 };
 
 const validateDiaper = (data: Data): string[] => {
-  
-    return [];
+    const errors: string[] = [];
+    if (!data.diaperType) {
+        errors.push('Diaper type is required');
+    }
+    return errors;
 };
 
 const validateSleep = (data: Data): string[] => {
-   
-    return [];
+    const errors: string[] = [];
+    if (!data.sleepType) {
+        errors.push('Sleep type is required');
+    }
+    return errors;
 };
 
 const validateEat = (data: Data): string[] => {
-  
-    return [];
+    const errors: string[] = [];
+    if (!data.eatType) {
+        errors.push('Eat type is required');
+    }
+    return errors;
 };
 
 const validateFields = (data: Data, actionType: string): string[] => {

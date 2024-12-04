@@ -1,78 +1,29 @@
-import { useEffect } from "react";
-import { Button, Grid2, TextField } from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers";
-import { handleInputChange, selectItem } from '../../Utils/Utils.tsx';
-import { adjustDateTimeForTimezone } from "../../Utils/Core.tsx";
-import dayjs from 'dayjs';
-import MaterialDatePicker from "../MaterialDatePicker.tsx";
+import React from "react";
+import FormComponent from "./Form";
+
 interface DiaperProps {
-    data: {
-        start_date?: Date | null;
-        type?: number;
-        observation?: string;
-        action_type?: number;
-    };
+    data: Record<string, never>;
     setData: (data: object) => void;
     translate: (key: string) => string;
 }
 
-const Diaper = ({ data, setData, translate }: DiaperProps) => {
-    useEffect(() => {
-        if (!data?.action_type) {
-            setData({ ...data, action_type: 3 });
-        }
-    }, [data, setData]);
+const Diaper: React.FC<DiaperProps> = ({ data, setData, translate }) => {
+    const fields: {
+        name: string;
+        label: string;
+        type: "number" | "date" | "select" | "text";
+        options?: { value: string | number; label: string; }[];
+    }[] = [
+            { name: "start_date", label: translate("Start Date"), type: "date" },
+            { name: "type", label: translate("Type"), type: "select", options: [{ value: 1, label: "Wet" }, { value: 2, label: "Dirty" }] },
+            { name: "observation", label: translate("Observation"), type: "text" },
+        ];
 
-    const handleTypeSelection = (type: number) => {
-        selectItem(type, "type", data, setData);
+    const handleSubmit = () => {
+        console.log("Submitted data:", data);
     };
-
-    return (
-        <Grid2 container spacing={2}>
-            <Grid2 item xs={12}>
-               <MaterialDatePicker data={data} setData={setData} translate={translate} />
-            </Grid2>
-            <Grid2 item xs={12}>
-                <Button
-                    color={data.type === 1 ? "secondary" : "primary"}
-                    onClick={() => handleTypeSelection(1)}
-                >
-                    {translate("diaper-wet")}
-                </Button>
-                <Button
-                    color={data.type === 2 ? "secondary" : "primary"}
-                    onClick={() => handleTypeSelection(2)}
-                >
-                    {translate("diaper-dirty")}
-                </Button>
-                <Button
-                    color={data.type === 3 ? "secondary" : "primary"}
-                    onClick={() => handleTypeSelection(3)}
-                >
-                    {translate("diaper-both")}
-                </Button>
-                <Button
-                    color={data.type === 4 ? "secondary" : "primary"}
-                    onClick={() => handleTypeSelection(4)}
-                >
-                    {translate("diaper-clean")}
-                </Button>
-            </Grid2>
-            <Grid2 item xs={12}>
-                <TextField
-                    value={data?.observation || ""}
-                    label={translate("observation")}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                        handleInputChange("observation", event.target.value, data, setData)
-                    }
-                    name="observation"
-                    rows={6}
-                    fullWidth
-                    multiline
-                />
-            </Grid2>
-        </Grid2>
-    );
+    
+    return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;
 };
 
 export default Diaper;

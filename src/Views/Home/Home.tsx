@@ -8,6 +8,7 @@ import MaterialTypography from './../../Components/MaterialTypography';
 import {baby} from '../../Constants/Data';
 import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
 import { routines } from '../../Constants/RoutinesInfo.tsx'
+import Eat from '../../Components/CustomComponents/Eat.tsx';
 
 export default function Home() {
 
@@ -19,7 +20,9 @@ return (
             <AppBar title={ translate("initial-panel")} home={true} id={1}/>
         </MaterialBox>
         
-        <MaterialTypography variant="h5" component="h1" styles={Styles.title}>{translate('welcome') }</MaterialTypography>
+       
+        
+        <MaterialTypography variant="h5" component="h1" styles={Styles.title}>{translate('welcome')}</MaterialTypography>
             
         <MaterialGrid baby={baby} />
         <MaterialCard styles={Styles.card}>
