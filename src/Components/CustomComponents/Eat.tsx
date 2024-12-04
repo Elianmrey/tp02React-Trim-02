@@ -1,4 +1,3 @@
-import React from "react";
 import FormComponent from "./Form";
 
 interface EatProps {
