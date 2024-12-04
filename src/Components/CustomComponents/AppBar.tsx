@@ -9,6 +9,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import {useAppContext } from '../../../Context/Context';
 import HomeIcon from '@mui/icons-material/Home';
 
+
 interface AppBarProps {
   title: string;
   home?: boolean
@@ -40,18 +41,24 @@ export default function MaterialAppBar({ title, home }: AppBarProps) {
 const styles = {
     appBar: {
     width: '100%',
+    position: 'relative',
+    zIndex: 1,
     },
   toolBar: {
     justifyContent: 'space-between',
     position: 'relative',
+    width: '100%',
+    zIndex:1,
   },
     profileBox: {
         display: { xs: 'flex', md: 'none' },
         position: 'absolute',
-        right: 10,
+        right: 55,
         zIndex: 10,
-        width: '100%',
-        justifyContent: 'flex-end',
+        width: '20%',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+        alignSelf: 'center',
         paddingTop: '5px',
         paddingBottom: '5px',
     },

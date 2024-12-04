@@ -4,7 +4,6 @@ import FormComponent from "./Form";
 interface DiaperProps {
     data: 
     {
-        name: string;
         start_date?: string | undefined;
         type?: number;
         observation?: string | undefined;

@@ -5,7 +5,6 @@ interface SleepProps {
     start_date?: string | undefined;
     end_date?: string | undefined;
     observation?: string | undefined;
-    action_type?: number | undefined;
   };
   setData: (data: object) => void;
   translate: (key: string) => string;

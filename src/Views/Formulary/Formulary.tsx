@@ -12,10 +12,19 @@ export default function DynamicFormView(){
     const { action } = useParams();
     console.log(action)
     const { translate } = useAppContext();
-    const [dataDiaper, setDataDiaper] = useState({});
-    const [dataSleep, setDataSleep] = useState({});
+    
+    const [dataDiaper, setDataDiaper]= useState<{
+        start_date: string | undefined,
+        type: number,
+        observation?: string | undefined,
+    }> ( {
+        start_date:'',
+        type: 0,
+        observation: '',
+    });
+    
     const [dataEat, setDataEat] = useState({});
-  
+    const [dataSleep, setDataSleep] = useState({});
     
     function Getform(action: string | undefined) {
     
@@ -45,7 +54,7 @@ export default function DynamicFormView(){
     return (
         <MaterialContainer styles={styles.container}>
 
-            <MaterialAppBar title={translate('formulary') + ": " + getTitle(action)} id={1} home={false} />
+            <MaterialAppBar title={translate('formulary') + ": " + getTitle(action)}  home={false} />
             {Getform(action)}
       </MaterialContainer>
     )
