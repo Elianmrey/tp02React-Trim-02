@@ -18,5 +18,18 @@ function IsAuthenticated() {
     else {  
         return null;
     }
-    }
-export { IsAuthenticated, HandleVerificationProtected }
+}
+    
+const signIn = async (email: string, password: string, supabase) => {
+    return await supabase.auth.signInWithPassword({
+        email, password
+    });
+}
+
+const signUp = async (email: string, password: string, supabase) => {
+    return await supabase.auth.signUp({
+        email, password
+    });
+}
+
+export { IsAuthenticated, HandleVerificationProtected, signIn, signUp }

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import MaterialAlert from "../src/Components/MaterialAlert";
 import { useTranslation } from 'react-i18next';
-
+import { createClient } from '@supabase/supabase-js';
 
 interface AppProviderProps {
     children: React.ReactNode;
@@ -16,6 +16,8 @@ interface AppContextInterface {
 
 
 const AppContext = createContext<AppContextInterface | null>(null);
+
+const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
 
 
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
@@ -71,7 +73,8 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         handleCloseSnackbar,
         changeLanguage,
         translate,
-        changeLanguageInteractive
+        changeLanguageInteractive,
+        supabase,
     };
 
     return (
