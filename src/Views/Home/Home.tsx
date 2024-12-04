@@ -1,6 +1,5 @@
 import MaterialGrid from '../../Components/MaterialGrid.tsx';
 import MaterialCard from '../../Components/MaterialCard.tsx';
-// import TabPanel from '../../Components/TabPanel.tsx';
 import MaterialBox from '../../Components/MaterialBox.tsx';
 import AppBar from '../../Components/CustomComponents/AppBar.tsx';
 import { useAppContext } from '../../../Context/Context.tsx';
@@ -17,7 +16,7 @@ export default function Home() {
 return (
     <MaterialBox styles={Styles.container}>
         <MaterialBox styles={Styles.profileBox}>
-            <AppBar title={ translate("initial-panel")} home={true} id={1}/>
+            <AppBar title={ translate("initial-panel")} home={true} />
         </MaterialBox>
         
        
@@ -48,7 +47,6 @@ const Styles = {
         width: '100%',
         height: '5vh',
         borderRadius: '10px',
-      
     },
     
     container: {

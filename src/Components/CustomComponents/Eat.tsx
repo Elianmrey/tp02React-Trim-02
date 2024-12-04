@@ -15,7 +15,7 @@ interface EatProps {
   translate: (key: string) => string;
 }
 
-const Eat: React.FC<EatProps> = ({ data, setData, translate }) => {
+export default function Eat ({ data, setData, translate }:EatProps)  {
   const fields: {
   name: string;
   label: string;
@@ -47,4 +47,4 @@ const Eat: React.FC<EatProps> = ({ data, setData, translate }) => {
   return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;
 };
 
-export default Eat;
+

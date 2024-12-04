@@ -1,0 +1,13 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import Home from "../Views/Home/Home.tsx";
+import Protected from "./Protected/Protected.tsx";
+import { HandleVerificationProtected, IsAuthenticated } from "../Services/Authentication.tsx";
+import Settings from "../Views/Settings/Settings.tsx";
+import SignUp from "../Views/SignUp/SignUp.tsx";
+import SignIn from "../Views/SignIn/SignIn.tsx";
+import Dashboard from "../Views/Dashboard/Dashboard.tsx";
+import Notfound from "../Views/NotFound/NotFound.tsx";
+import Formulary from "../Views/Formulary/Formulary.tsx";
+const routes = createBrowserRouter(createRoutesFromElements(_jsxs(Route, { path: "/", element: _jsx(Protected, {}), children: [_jsxs(Route, { children: [_jsx(Route, { path: "/", index: true, element: _jsx(Home, {}), loader: () => HandleVerificationProtected() }), _jsx(Route, { path: "/settings", element: _jsx(Settings, {}), loader: () => HandleVerificationProtected() }), _jsx(Route, { path: "/dashboard", element: _jsx(Dashboard, {}), loader: () => HandleVerificationProtected() }), _jsx(Route, { path: "/formulary", element: _jsx(Formulary, {}), loader: () => HandleVerificationProtected() }), _jsx(Route, { path: "/*", element: _jsx(Notfound, {}), loader: () => HandleVerificationProtected() })] }), _jsx(Route, { path: "/signin", element: _jsx(SignIn, {}), loader: () => IsAuthenticated() }), _jsx(Route, { path: "/signup", element: _jsx(SignUp, {}), loader: () => IsAuthenticated() })] })));
+export default routes;
