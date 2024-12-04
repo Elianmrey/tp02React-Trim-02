@@ -12,19 +12,10 @@ export default function DynamicFormView(){
     const { action } = useParams();
     console.log(action)
     const { translate } = useAppContext();
-    
-    const [dataDiaper, setDataDiaper]= useState<{
-        start_date: string | undefined,
-        type: number,
-        observation?: string | undefined,
-    }> ( {
-        start_date:'',
-        type: 0,
-        observation: '',
-    });
-    
-    const [dataEat, setDataEat] = useState({});
+    const [dataDiaper, setDataDiaper] = useState({});
     const [dataSleep, setDataSleep] = useState({});
+    const [dataEat, setDataEat] = useState({});
+  
     
     function Getform(action: string | undefined) {
     
