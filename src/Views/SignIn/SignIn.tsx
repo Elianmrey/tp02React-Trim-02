@@ -1,101 +1,114 @@
 import { useEffect, useState } from "react";
 import { SaveToLocalStrg } from "../../Core/Corefunctions.tsx";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
-import IconButton from '@mui/material/IconButton';
+import IconButton from "@mui/material/IconButton";
 import styles from "./StyleLogin.module.scss";
-import { useAppContext } from '../../../Context/Context.tsx';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
+import { useAppContext } from "../../../Context/Context.tsx";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { SignIn } from "../../Services/Authentication.tsx";
 
 export default function Signin() {
     const [userData, setUserData] = useState<{ userName: string; password: string }>({
-        userName: '',
-        password: ''
+        userName: "",
+        password: "",
     });
-    const { ShowAlert } = useAppContext();
+    const { ShowAlert, supabase } = useAppContext();
+    const navigate = useNavigate();
+
+    async function VerifyLogin(e: React.FormEvent) {
+        e.preventDefault();
+      
+
+        try {
+            const { data, error } = await SignIn(userData.userName, userData.password, supabase);
+
+            if (error) {
+                ShowAlert("Usuário ou senha inválidos", "error");
+                console.error("Usuário ou senha inválidos:", error.message);
+                return;
+            }
+
+            if (data) {
+                ShowAlert("Usuário autenticado com sucesso", "success");
+                SaveToLocalStrg("current_user_token", data);
+                navigate("/");
+            }
+        } catch (err) {
+            console.error("Unexpected error during login:", err);
+            ShowAlert("Ocorreu um erro. Tente novamente mais tarde.", "error");
+        }
+    }
 
     useEffect(() => {
-        ShowAlert('Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha', 'success');
-    }
-        , [ShowAlert]);
+        ShowAlert("Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha", "success");
+    }, [ShowAlert]);
 
-
-    function HandleChange(e: React.ChangeEvent<HTMLInputElement>, field: 'userName' | 'password') {
+    function HandleChange(e: React.ChangeEvent<HTMLInputElement>, field: "userName" | "password") {
         const value = e.currentTarget.value;
         setUserData((prevData) => ({
             ...prevData,
-            [field]: value
+            [field]: value,
         }));
-    }
-    function CredentialsOk() {
-        const user = localStorage.getItem('current_user_token');
-        if (user) {
-            return true;
-        }
-        return false;
-    }
-
-    function HandleSubmit() {
-
-        if (!userData.userName || !userData.password) {
-            alert('Preencha todos os campos. Por favor!');
-            return null;
-        }
-        SaveToLocalStrg('current_user_token', userData);
-
-        if (CredentialsOk()) {
-            console.log("Usuario autenticado!");
-            throw redirect('/home');
-        } else {
-            console.log("Falha de autenticaçao!");
-            return null;
-        }
-
-
     }
 
     return (
         <div>
+            <Typography
+                variant="h2"
+                component="h2"
+                align="center"
+                gutterBottom
+                style={{ fontSize: "3rem", fontWeight: "bold" }}
+            >
+                Login
+            </Typography>
 
-            <Typography variant="h2" component="h2" align="center" gutterBottom style={{ fontSize: '3rem', fontWeight: 'bold' }}>Login</Typography>
+            <form onSubmit={VerifyLogin} className={styles.container}>
+                <input
+                    type="text"
+                    placeholder="Usuário"
+                    value={userData.userName}
+                    onChange={(e) => HandleChange(e, "userName")}
+                    className={styles.input}
+                />
 
-            <form onSubmit={HandleSubmit} className={styles.container}>
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    value={userData.password}
+                    onChange={(e) => HandleChange(e, "password")}
+                    className={styles.input}
+                />
 
-                <input type="text" placeholder="Usuario" value={userData.userName}
-                    onChange={(e) => HandleChange(e, 'userName')} className={styles.input} />
+                <button type="submit" className={styles.button}>
+                    Login
+                </button>
 
-                <input type="password" placeholder="Senha" value={userData.password}
-                    onChange={(e) => HandleChange(e, 'password')} className={styles.input} />
-
-                <button type="submit" className={styles.button} >Login</button>
                 <Link to="/signup">
-                    <IconButton color="primary" sx={{
-                        margin: '10px',
-                        width: '150px',
-                        height: '40px',
-                        backgroundColor: '#1a1a1a',
-                        borderRadius: '10px', gap: '10px',
-                        color: '#fff',
-                        fontSize: '16px',
-                        '&:hover': {
-                            backgroundColor: '#1a1a1a',
-                            borderColor: '#646cff',
-                            borderWidth: '2px',
-                            borderStyle: 'solid',
-                        }
-                    }}>
-                        <PersonAddIcon /> Criar conta</IconButton>
+                    <IconButton
+                        color="primary"
+                        sx={{
+                            margin: "10px",
+                            width: "150px",
+                            height: "40px",
+                            backgroundColor: "#1a1a1a",
+                            borderRadius: "10px",
+                            gap: "10px",
+                            color: "#fff",
+                            fontSize: "16px",
+                            "&:hover": {
+                                backgroundColor: "#1a1a1a",
+                                borderColor: "#646cff",
+                                borderWidth: "2px",
+                                borderStyle: "solid",
+                            },
+                        }}
+                    >
+                        <PersonAddIcon /> Criar conta
+                    </IconButton>
                 </Link>
             </form>
-
-
-
-
-
-
-
-
         </div>
     );
 }

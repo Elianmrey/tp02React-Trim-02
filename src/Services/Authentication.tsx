@@ -1,3 +1,4 @@
+import { SupabaseClient } from '@supabase/supabase-js';
 import { Navigate, redirect } from 'react-router-dom';
 
  function HandleVerificationProtected() {
@@ -20,16 +21,16 @@ function IsAuthenticated() {
     }
 }
     
-const signIn = async (email: string, password: string, supabase) => {
+const SignIn = async (email: string, password: string, supabase: SupabaseClient) => {
     return await supabase.auth.signInWithPassword({
         email, password
     });
 }
 
-const signUp = async (email: string, password: string, supabase) => {
+const SignUp = async (email: string, password: string, supabase: SupabaseClient) => {
     return await supabase.auth.signUp({
         email, password
     });
 }
 
-export { IsAuthenticated, HandleVerificationProtected, signIn, signUp }
+export { IsAuthenticated, HandleVerificationProtected, SignIn, SignUp }

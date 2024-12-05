@@ -1,72 +1,83 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import MaterialAlert from "../src/Components/MaterialAlert";
-import { useTranslation } from 'react-i18next';
-import { createClient } from '@supabase/supabase-js';
-
+import { useTranslation } from "react-i18next";
+import { createClient } from "@supabase/supabase-js";
+import { SupabaseClient } from '@supabase/supabase-js';
 interface AppProviderProps {
     children: React.ReactNode;
 }
 
-
-interface AppContextInterface {
-    ShowAlert: (message: string, severity: 'success' | 'error' | 'warning' | 'info') => void;
-    snackbar: { open: boolean, message: string, severity: 'success' | 'error' | 'warning' | 'info' };
-    handleCloseSnackbar: () => void;
+interface SnackbarState {
+    open: boolean;
+    message: string;
+    severity: "success" | "error" | "warning" | "info";
 }
 
+interface AppContextInterface {
+    ShowAlert: (message: string, severity: SnackbarState["severity"]) => void;
+    snackbar: SnackbarState;
+    handleCloseSnackbar: () => void;
+    translate: (key: string) => string;
+    changeLanguage: (lang: string) => void;
+    changeLanguageInteractive: () => void;
+    supabase: SupabaseClient;
+}
 
 const AppContext = createContext<AppContextInterface | null>(null);
 
-const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
-
+const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL,
+    import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-    const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' | 'warning' | 'info' });
+    const [snackbar, setSnackbar] = useState<SnackbarState>({
+        open: false,
+        message: "",
+        severity: "success",
+    });
 
-   
+    // i18n Tradução de linguagem
+    const { t: translate, i18n } = useTranslation();
 
-    //i18n Tradução de linguagem 
-    const {  t: translate, i18n } = useTranslation();
-
-    function changeLanguage(lang: string) {
+    const changeLanguage = (lang: string) => {
         i18n.changeLanguage(lang);
         localStorage.setItem("language", lang);
-    }
-    
+    };
+
+    const changeLanguageInteractive = () => {
+        const storedLanguage = localStorage.getItem("language");
+        if (storedLanguage === "pt") {
+            changeLanguage("en");
+        } else if (storedLanguage === "en") {
+            changeLanguage("es");
+        } else if (storedLanguage === "es") {
+            changeLanguage("pt");
+        }
+    };
+
     useEffect(() => {
         const storedLanguage = localStorage.getItem("language");
-
         if (storedLanguage) {
             changeLanguage(storedLanguage);
         } else {
             const navLang = navigator.language.split("-")[0];
             changeLanguage(navLang);
         }
-    }, [])
+    }, []);
 
-    function changeLanguageInteractive()
-    {
-        const storedLanguage = localStorage.getItem("language");
-        if (storedLanguage === 'pt') {
-            changeLanguage('en');
-        } else if (storedLanguage === 'en') {
-            changeLanguage('es');
-        }else if ( storedLanguage === 'es') {
-            changeLanguage('pt');
+    const ShowAlert = (message: string, severity: SnackbarState["severity"]) => {
+        if (snackbar.open && snackbar.message === message && snackbar.severity === severity) {
+          
+            return;
         }
-    }
-    //Fim i18n
-
-    function ShowAlert(message: string, severity: 'success' | 'error' | 'warning' | 'info') {
         setSnackbar({ open: true, message, severity });
-    }
+    };
 
-
-    function handleCloseSnackbar() {
+    const handleCloseSnackbar = () => {
         setSnackbar((prev) => ({ ...prev, open: false }));
-    }
+    };
 
-  
     const sharedState = {
         ShowAlert,
         snackbar,
@@ -81,25 +92,14 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         <AppContext.Provider value={sharedState}>
             {children}
             <MaterialAlert snackbar={snackbar} handleCloseSnackbar={handleCloseSnackbar} />
-            
         </AppContext.Provider>
     );
-}
+};
 
-interface AppContextInterface {
-    translate: (key: string) => string;
-    changeLanguage: (lang: string) => void
-    ShowAlert: (message: string, severity: 'success' | 'error' | 'warning' | 'info') => void;
-    snackbar: { open: boolean, message: string, severity: 'success' | 'error' | 'warning' | 'info' };
-    handleCloseSnackbar: () => void;
-    changeLanguageInteractive: () => void
-    
-}
-// eslint-disable-next-line react-refresh/only-export-components
 export function useAppContext() {
     const context = useContext(AppContext);
     if (!context) {
-        throw new Error('useAppContext must be used within an AppProvider');
+        throw new Error("useAppContext must be used within an AppProvider");
     }
     return context;
 }
