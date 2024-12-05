@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Box, Button, InputBase } from "@mui/material";
+import { Button, InputBase } from "@mui/material";
 import MaterialButton from "../../Components/MaterialButton";
 import { useAppContext } from '../../../Context/Context';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validPassword } from '../../Utils/validators';
+import { SignUp } from '../../Services/Authentication';
 
 export default function Formulary() {
     const [info, setInfo] = useState<{ email: string; password: string }>({
@@ -15,42 +16,44 @@ export default function Formulary() {
     const navigate = useNavigate();
 
     async function HandleSignUp() {
-        // Validação de email e senha
+      
         const emailValidation = validateEmail(info.email);
         const passwordValidation = validPassword(info.password);
 
         if (!info.email || !info.password) {
             ShowAlert("Os campos são obrigatórios.", "error");
+              setInfo({ email: '',password: ''});
             return;
         }
 
-        if (emailValidation.error) {
-            ShowAlert(emailValidation.message || "Email inválido.", "error");
+        if (!emailValidation) {
+            ShowAlert("Email inválido. Verifique!", "error");
+              setInfo({ email: '',password: ''});
             return;
         }
 
-        if (passwordValidation.error) {
-            ShowAlert(passwordValidation.message || "Senha inválida.", "error");
+        if (!passwordValidation) {
+            ShowAlert("Senha inválida! Verifique por favor!", "error");
+              setInfo({ email: '',password: ''});
             return;
         }
 
         try {
-            const { error } = await supabase.auth.signUp({
-                email: info.email,
-                password: info.password
-            });
+            const { error } = await SignUp(info.email, info.password, supabase);
 
             if (error) {
                 console.error("Erro ao criar usuário:", error.message);
                 ShowAlert("Erro ao criar usuário. Verifique os dados e tente novamente.", "error");
+                setInfo({ email: '',password: ''});
                 return;
             }
 
             ShowAlert("Cadastro efetuado com sucesso! Verifique seu email para confirmar o cadastro.", "success");
-            navigate('/signin');
+           setTimeout(() => navigate('/signin'), 2000);
         } catch (err) {
             console.error("Erro inesperado:", err);
             ShowAlert("Ocorreu um erro. Tente novamente mais tarde.", "error");
+              setInfo({ email: '',password: ''});
         }
     }
 
@@ -60,9 +63,6 @@ export default function Formulary() {
     }
 
     return (
-        <Box sx={styles.container} component={'form'} onSubmit={onSubmit}>
-            <h1>Página SignUp</h1>
-
             <form
                 onSubmit={onSubmit}
                 style={{
@@ -92,7 +92,7 @@ export default function Formulary() {
                 </Button>
                 <MaterialButton route="/signin" buttonText="Voltar" />
             </form>
-        </Box>
+  
     );
 }
 
@@ -104,15 +104,17 @@ const styles = {
         gap: 10,
         backgroundColor: '#181717',
         borderRadius: 5,
-        width: '100%',
+        width: '50%',
+        height:'100%',
         margin: '0 auto',
         padding: 20,
     },
     inputBase: {
         color: 'white',
+
         margin: '10px',
         width: '100%',
-        maxWidth: '40%',
+        maxWidth: '100%',
         '& input::placeholder': {
             color: 'white',
             textAlign: 'center',

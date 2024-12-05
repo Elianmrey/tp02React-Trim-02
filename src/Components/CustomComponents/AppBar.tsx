@@ -8,6 +8,8 @@ import MaterialAvatar from '../MaterialAvatar';
 import TranslateIcon from '@mui/icons-material/Translate';
 import {useAppContext } from '../../../Context/Context';
 import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { onLogout } from '../../Services/Authentication';
 
 
 interface AppBarProps {
@@ -16,14 +18,24 @@ interface AppBarProps {
 }
 
 export default function MaterialAppBar({ title, home }: AppBarProps) {
+
+  const HandleLogout = () => {
+    onLogout(supabase);
+    localStorage.removeItem('user');
+    localStorage.removeItem('session');
+    navigate('/signin');
+  };
+
   const navigate = useNavigate();
-  const { changeLanguageInteractive } = useAppContext();
+  const { changeLanguageInteractive, supabase } = useAppContext();
   return (
     <AppBar position="static" sx={styles.appBar}>
       <Toolbar sx={styles.toolBar} >
        {!home? <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={styles.iconButton} onClick={() => navigate('/')} >
           <HomeIcon sx={{ color: 'orange' }}/>
-              </IconButton>: false}
+              </IconButton> : <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={styles.iconButton} onClick={HandleLogout} >
+          <LogoutIcon sx={{ color: 'orange' }}/>
+              </IconButton>}
               
         <Typography variant="h6" component="h2" sx={styles.title} >
           {title}

@@ -33,4 +33,8 @@ const SignUp = async (email: string, password: string, supabase: SupabaseClient)
     });
 }
 
-export { IsAuthenticated, HandleVerificationProtected, SignIn, SignUp }
+const onLogout = async ( supabase: SupabaseClient) => {
+    return await supabase.auth.signOut();
+}
+
+export { IsAuthenticated, HandleVerificationProtected, SignIn, SignUp, onLogout }
