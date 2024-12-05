@@ -1,4 +1,5 @@
 
+import { save } from "../../Services/Supabase";
 import FormComponent from "./Form";
 
 interface DiaperProps {
@@ -25,9 +26,9 @@ export default function Diaper ({ data, setData, translate }: DiaperProps)  {
         ];
 
     const handleSubmit = () => {
-        console.log("Dados enviados:", data);
-    };
-    
+    save('items', {...data, action_type: 3}).then((res) => console.log(res));
+    setData({});
+  };
     return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;
 };
 

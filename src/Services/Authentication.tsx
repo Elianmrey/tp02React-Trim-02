@@ -37,4 +37,5 @@ const onLogout = async ( supabase: SupabaseClient) => {
     return await supabase.auth.signOut();
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { IsAuthenticated, HandleVerificationProtected, SignIn, SignUp, onLogout }

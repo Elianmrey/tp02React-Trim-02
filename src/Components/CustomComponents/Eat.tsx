@@ -1,3 +1,4 @@
+import { save } from "../../Services/Supabase";
 import FormComponent from "./Form";
 
 interface EatProps {
@@ -21,26 +22,28 @@ export default function Eat ({ data, setData, translate }:EatProps)  {
   type: "number" | "select" | "text" | "date";
   options?: { value: string | number; label: string }[];
 }[] = [
-  { name: "type", label: translate("Tipo"), type: "select", options: [
-      { value: 1, label: translate("Mamadeira") },
-      { value: 2, label: translate("Seio") },
+  { name: "type", label: translate("type"), type: "select", options: [
+      { value: 1, label: translate("eat-bottle") },
+      { value: 2, label: translate("eat-bosom") },
     ] 
   },
-  { name: "side", label: translate("Lado"), type: "select", options: [
-      { value: 1, label: translate("Esquerdo") },
-      { value: 2, label: translate("Direito") },
-      { value: 3, label: translate("Ambos") },
+  { name: "side", label: translate("side"), type: "select", options: [
+      { value: 1, label: translate("left") },
+      { value: 2, label: translate("right") },
+    { value: 3, label: translate("both") },
+      { value: 4, label: translate("none") },
     ] 
   },
-  { name: "quantity", label: translate("Quantidade (ml)"), type: "number" },
-  { name: "start_date", label: translate("Data Inicial"), type: "date" },
-  { name: "end_date", label: translate("Data Final"), type: "date" },
-  { name: "observation", label: translate("Observação"), type: "text" },
+  { name: "quantity", label: translate("quantity"), type: "number" },
+  { name: "start_date", label: translate("date-hour-start"), type: "date" },
+  { name: "end_date", label: translate("date-hour-end"), type: "date" },
+  { name: "observation", label: translate("observation"), type: "text" },
 ];
 
 
   const handleSubmit = () => {
-    console.log("Submitted data:", data);
+    save('items', {...data, action_type: 2}).then((res) => console.log(res));
+    setData({});
   };
 
   return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;

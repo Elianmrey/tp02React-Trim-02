@@ -19,10 +19,10 @@ const update = async (data: object, id: unknown) => {
     }
 };
 
-const drop = async (id: unknown) => {
+const drop = async (tableName: string, id: unknown) => {
     try {
         const { error } = await supabase
-            .from('item')
+            .from(tableName)
             .delete()
             .eq('id', id);
 
@@ -30,16 +30,16 @@ const drop = async (id: unknown) => {
             throw error;
         }
         return true;
-    } catch (err) {
+    } catch (err: any) {
         console.error("Error deleting item:", err.message);
         return false;
     }
 };
 
-const get = async (id:string) => {
+const get = async (tableName: string,id:string) => {
     try {
         const { data, error } = await supabase
-            .from('item')
+             .from(tableName)
             .select()
             .eq('id', id); 
 
@@ -47,16 +47,16 @@ const get = async (id:string) => {
             throw error;
         }
         return data;
-    } catch (err) {
+    } catch (err: any) {
         console.error("Error fetching item:", err.message);
         return null;
     }
 };
 
-const list = async () => {
+const list = async (tableName: string) => {
     try {
         const { data, error } = await supabase
-            .from('item')
+             .from(tableName)
             .select()
             .order('created_at', { ascending: false }); 
 
@@ -64,16 +64,16 @@ const list = async () => {
             throw error;
         }
         return data;
-    } catch (err) {
+    } catch (err: any) {
         console.error("Error listing items:", err.message);
         return [];
     }
 };
 
-const save = async (data) => {
+const save = async (tableName: string, data: object) => {
     try {
         const { data: savedData, error } = await supabase
-            .from('item')
+            .from(tableName)
             .insert(data)
             .select();
 
@@ -81,7 +81,7 @@ const save = async (data) => {
             throw error;
         }
         return savedData;
-    } catch (err) {
+    } catch (err: any) {
         console.error("Error saving item:", err.message);
         return null;
     }
