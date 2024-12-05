@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { SaveToLocalStrg } from "../../Core/Corefunctions.tsx";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
@@ -24,8 +24,9 @@ export default function Signin() {
             const { data, error } = await SignIn(userData.userName, userData.password, supabase);
 
             if (error) {
-                ShowAlert("Usuário ou senha inválidos", "error");
+                ShowAlert("Usuário ou senha inválidos", "warning");
                 console.error("Usuário ou senha inválidos:", error.message);
+                setUserData({ userName: "", password: "" });
                 return;
             }
 
@@ -37,12 +38,13 @@ export default function Signin() {
         } catch (err) {
             console.error("Unexpected error during login:", err);
             ShowAlert("Ocorreu um erro. Tente novamente mais tarde.", "error");
+            setUserData({ userName: "", password: "" });
         }
     }
 
     useEffect(() => {
         ShowAlert("Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha", "success");
-    }, [ShowAlert]);
+    }, []);
 
     function HandleChange(e: React.ChangeEvent<HTMLInputElement>, field: "userName" | "password") {
         const value = e.currentTarget.value;
