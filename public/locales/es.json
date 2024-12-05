@@ -65,5 +65,6 @@
    "action": "Acción",
    "formulary": "Formulario",
    "start-date": "Fecha de inicio",
-   "end-date": "Fecha de finalización"
+   "end-date": "Fecha de finalización",
+   "no-items-to-show": "No hay elementos para mostrar"
 }

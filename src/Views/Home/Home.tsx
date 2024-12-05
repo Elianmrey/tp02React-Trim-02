@@ -6,7 +6,7 @@ import { useAppContext } from '../../../Context/Context.tsx';
 import MaterialTypography from './../../Components/MaterialTypography';
 import {baby} from '../../Constants/Data';
 import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
-import { routines } from '../../Constants/RoutinesInfo.tsx'
+import { dataBase } from '../../Services/DataService.tsx'
 
 
 export default function Home() {
@@ -27,7 +27,7 @@ return (
         <MaterialCard styles={Styles.card}>
         
         
-            <CustomItemList items={routines } />
+            <CustomItemList items={ dataBase } />
         
         
         </MaterialCard>

@@ -8,10 +8,14 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import { useAppContext } from '../../../Context/Context';
 import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
 import BedtimeIcon from '@mui/icons-material/Bedtime';
+import MaterialTypography from '../MaterialTypography';
+import MaterialBox from '../MaterialBox';
+import { getTitle } from '../../Utils/Utils';
 
 
 interface ItemListProps {
-    items: Array<{ id: number; title: string; actionType: number }>;
+    
+    items: Array<{ id: number; action_type: number; start_date: string; end_date: string; observation: string; title: string }>;
 }
 
 
@@ -53,21 +57,17 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
     };
 
 
-    const generateSubtitle = (item: { title: string;}, translate: (key: string) => string) => {
-        return `${translate('action')}: ${item.title}`;
+    const generateSubtitle = (item: { title: string;action_type: number}, translate: (key: string) => string) => {
+        return `${translate('action')}: ${getTitle(item.action_type)} `;
     };
 
-    /*   {
-        title: 'Sono',
-        actionType: 1,
-        Icon: CribIcon,
-        color: '#4b10a9'
-    }
- */
+
     return (
-        <List {...props}>
+        <MaterialBox>
+            {items.length > 0 ? (
+            <List {...props}>
             {items.map((item, index) => {
-                const typeStr = actionTypeListToInt[item.actionType];
+                const typeStr = actionTypeListToInt[item.action_type];
                 return (
                     <ListItem
                         key={item.id}
@@ -77,11 +77,11 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
                             marginTop: "1em",
                         }}
                         id={`new-item-list-${index}`}
-                        onClick={() => navigate(`/${item.actionType}/${item.id}`)}
+                        onClick={() => navigate(`/dashboard/${item.id}`)}
                     >
                         <ListItemAvatar>
-                            <Avatar sx={{ bgcolor: typeColor[item.actionType] }}>
-                                {getIcon(item.actionType)}
+                            <Avatar sx={{ bgcolor: typeColor[item.action_type] }}>
+                                {getIcon(item.action_type)}
                             </Avatar>
                         </ListItemAvatar>
                         <ListItemText
@@ -91,6 +91,16 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
                     </ListItem>
                 );
             })}
-        </List>
+                </List>)
+                 : <MaterialTypography variant="h6" component="h1" styles={Styles.title}>{translate("no-items-to-show")}</MaterialTypography>
+            }
+        </MaterialBox>
     );
 }
+
+const Styles = {
+    title: {
+        marginTop: "1em",
+        marginBottom: "1em",
+    },
+};

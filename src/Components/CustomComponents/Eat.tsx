@@ -42,7 +42,7 @@ export default function Eat ({ data, setData, translate }:EatProps)  {
 
 
   const handleSubmit = () => {
-    save('items', {...data, action_type: 2}).then((res) => console.log(res));
+    save('items', {...data, action_type: 2,title: "eat"}).then((res) => console.log(res));
     setData({});
   };
 

@@ -64,5 +64,6 @@
    "action": "Action",
    "formulary": "Formulary",
    "start-date": "Start Date",
-   "end-date": "End Date"
+   "end-date": "End Date",
+   "no-items-to-show": "No Items To Show"
 }

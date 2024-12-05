@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import MaterialButton from "../../Components/MaterialButton.tsx";
 import {  Checkbox, FormControlLabel, FormGroup,  Radio,  RadioGroup } from '@mui/material';
 import { ArrowDownward, ArrowDownwardOutlined, ArrowUpward, ArrowUpwardOutlined, Star, StarBorder } from '@mui/icons-material';
-import { dataBase } from '../../Data/Database'
+
+// import { dataBase } from '../../Data/Database'
 
 import MaterialTable from '../../Components/MaterialTable.tsx';
 import MaterialContainer from '../../Components/MaterialContainer.tsx';
@@ -29,7 +30,7 @@ export default function DashBoard() {
             try {
                 setTimeout(() => {
                     setData({ message: 'Olá ,Voce está em Dashboard!' });
-                    setFilters([...dataBase]);
+                    // setFilters([...dataBase]);
 
                     setLoading(false);
                     setChecked(true);
@@ -55,23 +56,23 @@ export default function DashBoard() {
         setChecked(!checked);
     }
 
-    function Ordenation(orderCriteria: string, dataBlock: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string  }[])
-    {
-        if (orderCriteria === 'desc')
-        {
-            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }[]
-                = [...dataBlock].sort((a, b) => b.experience - a.experience)
-            setFilters(sortedData);  
-            setChecked(true);
-        }
-        else if (orderCriteria === 'asc')
-        {
-            const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }[]
-                = [...dataBlock].sort((a, b) => a.experience - b.experience);
-            setFilters(sortedData);  
-            setChecked(true);
-        } 
-        }
+    // function Ordenation(orderCriteria: string, dataBlock: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string  }[])
+    // {
+    //     if (orderCriteria === 'desc')
+    //     {
+    //         const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }[]
+    //             = [...dataBlock].sort((a, b) => b.experience - a.experience)
+    //         setFilters(sortedData);  
+    //         setChecked(true);
+    //     }
+    //     else if (orderCriteria === 'asc')
+    //     {
+    //         const sortedData: { userId: number, name: string, birthDate: string, occupation: string, experience: number, description: string }[] | { name: string, birthDate: string, occupation: string, experience: number, userId?: number, description: string }[]
+    //             = [...dataBlock].sort((a, b) => a.experience - b.experience);
+    //         setFilters(sortedData);  
+    //         setChecked(true);
+    //     } 
+    //     }
        
     function FilterByExperience(): void
     {
@@ -80,7 +81,7 @@ export default function DashBoard() {
             setFilters(filteredData);
         }
         else {
-            setFilters([...dataBase ]);
+            // setFilters([...dataBase ]);
         }
     }
 
@@ -101,8 +102,8 @@ export default function DashBoard() {
                 
                     {open ? <FormGroup sx={{ display: 'flex', flexDirection: 'row' }}>
                         <RadioGroup sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'  }} name="radio-buttons-group">
-                            <Radio onClick={() => (Ordenation('desc', [...dataBase]))} icon={<ArrowDownwardOutlined/>}   checkedIcon={<ArrowDownward />} sx={{ color: 'black' }} value="Older" name="Older" /> Mais antigos
-                            <Radio  onClick={() =>(Ordenation('asc',dataBase))}  icon={<ArrowUpwardOutlined/>}   checkedIcon={<ArrowUpward/>} sx={{ color: 'black' }} value="Newer" name="Newer" /> Mais recentes
+                            <Radio onClick={() => {/* (Ordenation('desc', [...dataBase]))*/ }} icon={<ArrowDownwardOutlined/>}   checkedIcon={<ArrowDownward />} sx={{ color: 'black' }} value="Older" name="Older" /> Mais antigos
+                            <Radio onClick={() => {/*(Ordenation('asc',dataBase))*/ }}  icon={<ArrowUpwardOutlined/>}   checkedIcon={<ArrowUpward/>} sx={{ color: 'black' }} value="Newer" name="Newer" /> Mais recentes
                             </RadioGroup>
 
                         <MaterialSwitch defaultChecked={checked} icon={<StarBorder sx={{ color: 'black' }} />} checkedIcon={<Star />} checked={checked ? false : true} label="Mais de 5 anos" style={{ marginLeft: '10px' }} onChange={() => { CheckedSwitch(); FilterByExperience() }} />

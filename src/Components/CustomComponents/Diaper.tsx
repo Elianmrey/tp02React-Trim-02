@@ -26,7 +26,7 @@ export default function Diaper ({ data, setData, translate }: DiaperProps)  {
         ];
 
     const handleSubmit = () => {
-    save('items', {...data, action_type: 3}).then((res) => console.log(res));
+    save('items', {...data, action_type: 3,title: "diaper"}).then((res) => console.log(res));
     setData({});
   };
     return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;
