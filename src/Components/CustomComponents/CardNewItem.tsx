@@ -23,6 +23,7 @@ export default function CardNewItem ({icon, color, title, actionInfo, representI
         { representIcon}
         <MaterialTypography styles={style.titleTypography}> {title ? title : "Asigne um título"}</MaterialTypography>
         <MaterialFab route={route ?? "#"} childrenIcon={icon} styles={style.fabStyle} color={color} onClick={() => navigate(`/new/${actionInfo}`)} />
+        
               
             </MaterialContainer>    
 }

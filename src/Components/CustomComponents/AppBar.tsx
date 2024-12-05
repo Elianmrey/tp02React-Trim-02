@@ -63,7 +63,7 @@ const styles = {
     zIndex:1,
   },
     profileBox: {
-        display: { xs: 'flex', md: 'none' },
+      display: { xs: 'flex', md: 'flex' },
         position: 'absolute',
         right: 55,
         zIndex: 10,

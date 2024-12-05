@@ -11,16 +11,18 @@ import BedtimeIcon from '@mui/icons-material/Bedtime';
 import MaterialTypography from '../MaterialTypography';
 import MaterialBox from '../MaterialBox';
 import { getTitle } from '../../Utils/Utils';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 interface ItemListProps {
     
     items: Array<{ id: number; action_type: number; start_date: string; end_date: string; observation: string; title: string }>;
+    onDrop: ( id: number) => void;
 }
 
 
 
-export default function CustomItemList({ items, ...props }: ItemListProps) {
+export default function CustomItemList({ items,onDrop, ...props }: ItemListProps) {
 
 
     const navigate = useNavigate();
@@ -77,7 +79,7 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
                             marginTop: "1em",
                         }}
                         id={`new-item-list-${index}`}
-                        onClick={() => navigate(`/dashboard/${item.id}`)}
+                      
                     >
                         <ListItemAvatar>
                             <Avatar sx={{ bgcolor: typeColor[item.action_type] }}>
@@ -86,8 +88,9 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
                         </ListItemAvatar>
                         <ListItemText
                             primary={translate(typeStr)}
-                            secondary={generateSubtitle(item, translate)}
+                            secondary={generateSubtitle(item, translate)} onClick={() => navigate(`/dashboard/${item.id}`)}
                         />
+                        <DeleteIcon sx={{ color: 'orangered', cursor: 'pointer',zIndex: 1000 }} onClick={() => onDrop(item.id)}/>
                     </ListItem>
                 );
             })}

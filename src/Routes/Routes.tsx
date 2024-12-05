@@ -16,7 +16,7 @@ const routes = createBrowserRouter(
             <Route>
                 <Route path="/" index element={<Home />} loader={() => HandleVerificationProtected()} />
                 <Route path="/settings" element={<Settings />} loader={() => HandleVerificationProtected()} />
-                <Route path="/dashboard" element={<Dashboard />} loader={() => HandleVerificationProtected()} />
+                <Route path="/dashboard/:id" element={<Dashboard />} loader={() => HandleVerificationProtected()} />
                 <Route path="/new/:action" element={<DynamicFormView />} loader={() => HandleVerificationProtected()} />
                 <Route path="/*" element={<Notfound />} loader={() => HandleVerificationProtected()} />
             </Route>

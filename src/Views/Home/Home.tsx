@@ -8,7 +8,7 @@ import MaterialTypography from './../../Components/MaterialTypography';
 import { baby } from '../../Constants/Data';
 import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
 import { list } from '../../Services/Supabase'; 
-
+import { drop } from '../../Services/Supabase';
 export default function Home() {
     const [dataBase, setDataBase] = useState ([]);
     const { translate } = useAppContext();
@@ -18,6 +18,12 @@ export default function Home() {
         const response = await list("items");
         setDataBase(response as never[]);
     };
+
+    const onDrop = async (id: number) => {
+        await drop("items", id);
+        fetchData();
+    };
+
 
     useEffect(() => {
         fetchData();   }, []);
@@ -35,7 +41,7 @@ export default function Home() {
             <MaterialGrid baby={baby} />
             <MaterialCard styles={Styles.card}>
                 
-                <CustomItemList items={dataBase.length > 0 ? dataBase : []} />
+                <CustomItemList items={dataBase.length > 0 ? dataBase : []} onDrop={onDrop}/>
             </MaterialCard>
         </MaterialBox>
     );

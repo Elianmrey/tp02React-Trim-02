@@ -36,7 +36,7 @@ const drop = async (tableName: string, id: unknown) => {
     }
 };
 
-const get = async (tableName: string,id:string) => {
+const get = async (tableName: string,id:number) => {
     try {
         const { data, error } = await supabase
              .from(tableName)
