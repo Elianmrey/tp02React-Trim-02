@@ -32,7 +32,8 @@ export default function Signin() {
 
             if (data) {
                 ShowAlert("Usuário autenticado com sucesso", "success");
-                SaveToLocalStrg("current_user_token", data);
+                SaveToLocalStrg("session", JSON.stringify(data.session)); 
+                SaveToLocalStrg("user", JSON.stringify(data.user)); 
                 navigate("/");
             }
         } catch (err) {

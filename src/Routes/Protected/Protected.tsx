@@ -6,7 +6,7 @@ export default function Protected() {
      
     const location = useLocation();
     
-    const user = localStorage.getItem('current_user_token')
+    const user = localStorage.getItem('session')
     
         
     if (location.pathname === '/signin' || location.pathname === '/signup') {

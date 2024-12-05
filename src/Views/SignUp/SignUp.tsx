@@ -1,90 +1,92 @@
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Button, InputBase } from "@mui/material";
 import MaterialButton from "../../Components/MaterialButton";
-import { GetFromLocalStrg, SaveToLocalStrg } from '../../Core/Corefunctions';
 import { useAppContext } from '../../../Context/Context';
-
-
+import { useNavigate } from 'react-router-dom';
+import { validateEmail, validPassword } from '../../Utils/validators';
 
 export default function Formulary() {
-
-    const [data, setData] = useState<{ message: string } | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [info, setInfo] = useState<{ name: string; email: string; password: string }>({
-        name: '',
+    const [info, setInfo] = useState<{ email: string; password: string }>({
         email: '',
         password: ''
     });
 
-    useEffect(() => {
+    const { ShowAlert, supabase } = useAppContext();
+    const navigate = useNavigate();
 
-        function fetchData() {
-            setLoading(true);
-            try {
-                setTimeout(() => {
-                    setData({ message: 'Olá ,Você está em SignUp!' });
-                    setLoading(false);
-                }, 2000);
-            } catch (error) {
-                console.error((error as Error).message);
-            }
+    async function HandleSignUp() {
+        // Validação de email e senha
+        const emailValidation = validateEmail(info.email);
+        const passwordValidation = validPassword(info.password);
+
+        if (!info.email || !info.password) {
+            ShowAlert("Os campos são obrigatórios.", "error");
+            return;
         }
 
-        fetchData();
-    }, []);
+        if (emailValidation.error) {
+            ShowAlert(emailValidation.message || "Email inválido.", "error");
+            return;
+        }
 
-    const { ShowAlert } = useAppContext();
+        if (passwordValidation.error) {
+            ShowAlert(passwordValidation.message || "Senha inválida.", "error");
+            return;
+        }
+
+        try {
+            const { error } = await supabase.auth.signUp({
+                email: info.email,
+                password: info.password
+            });
+
+            if (error) {
+                console.error("Erro ao criar usuário:", error.message);
+                ShowAlert("Erro ao criar usuário. Verifique os dados e tente novamente.", "error");
+                return;
+            }
+
+            ShowAlert("Cadastro efetuado com sucesso! Verifique seu email para confirmar o cadastro.", "success");
+            navigate('/signin');
+        } catch (err) {
+            console.error("Erro inesperado:", err);
+            ShowAlert("Ocorreu um erro. Tente novamente mais tarde.", "error");
+        }
+    }
 
     function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-
-        const dataUsers = GetFromLocalStrg('users') || [];
-
-        if (dataUsers.length > 0 && dataUsers.find((user: { email: string; }) => user.email === info.email)) {
-            ShowAlert('Email ja cadastrado!', 'error');
-            setInfo({ ...info, name: '', email: '', password: '' });
-            return;
-        } else if (info.name === '' || info.email === '' || info.password === '') {
-            ShowAlert('Preencha todos os campos!', 'error');
-        } else if (info.name, info.email, info.password) {
-            SaveToLocalStrg('users', ([...dataUsers, info]));
-            ShowAlert('Cadastro efetuado com sucesso!', 'success');
-        }
-
+        HandleSignUp();
     }
 
     return (
-        <Box sx={styles.container}>
+        <Box sx={styles.container} component={'form'} onSubmit={onSubmit}>
             <h1>Página SignUp</h1>
-            {loading ? (
-                <p>Carregando...</p>
-            ) : (
-                <p>{data?.message}</p>
-            )}
-            <form onSubmit={onSubmit} style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                width: '100%',
-                gap: 10,
-                padding: 20,
-            }}>
-                <InputBase
-                    placeholder="Digite seu nome"
-                    value={info.name}
-                    onChange={(e) => setInfo({ ...info, name: e.target.value })}
-                    sx={styles.inputBase} />
+
+            <form
+                onSubmit={onSubmit}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    width: '100%',
+                    gap: 10,
+                    padding: 20,
+                }}
+            >
                 <InputBase
                     placeholder="Digite seu email"
                     value={info.email}
                     onChange={(e) => setInfo({ ...info, email: e.target.value })}
-                    sx={styles.inputBase} />
+                    sx={styles.inputBase}
+                />
                 <InputBase
                     placeholder="Digite sua senha"
+                    type="password"
                     value={info.password}
                     onChange={(e) => setInfo({ ...info, password: e.target.value })}
-                    sx={styles.inputBase} />
+                    sx={styles.inputBase}
+                />
                 <Button variant="contained" type="submit" color="primary" sx={{ margin: '10px' }}>
                     Cadastrar
                 </Button>
@@ -93,8 +95,6 @@ export default function Formulary() {
         </Box>
     );
 }
-
-
 
 const styles = {
     container: {
@@ -122,6 +122,5 @@ const styles = {
         borderWidth: 1,
         borderRadius: 10,
         padding: '10px',
-    }
-
-}
+    },
+};
