@@ -58,7 +58,7 @@ export default function CustomItemList({ items, ...props }: ItemListProps) {
 
 
     const generateSubtitle = (item: { title: string;action_type: number}, translate: (key: string) => string) => {
-        return `${translate('action')}: ${getTitle(item.action_type)} `;
+        return `${translate('action')}: ${translate(getTitle(item.action_type))} `;
     };
 
 
