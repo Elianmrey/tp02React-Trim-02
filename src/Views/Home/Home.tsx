@@ -5,7 +5,7 @@ import MaterialBox from '../../Components/MaterialBox.tsx';
 import AppBar from '../../Components/CustomComponents/AppBar.tsx';
 import { useAppContext } from '../../../Context/Context.tsx';
 import MaterialTypography from './../../Components/MaterialTypography';
-import { baby } from '../../Constants/Data';
+import { baby } from '../../Constants/Data.tsx';
 import CustomItemList from '../../Components/CustomComponents/CustomList.tsx';
 import { list } from '../../Services/Supabase'; 
 import { drop } from '../../Services/Supabase';
