@@ -44,7 +44,7 @@ export default function Signin() {
     }
 
     useEffect(() => {
-        ShowAlert("Olá Bem-vindo ao TP de React, Digite qualquer usuário e senha", "success");
+        ShowAlert("Olá Bem-vindo ao TP de React, Digite usuário e senha, ou crie uma conta", "success");
     }, []);
 
     function HandleChange(e: React.ChangeEvent<HTMLInputElement>, field: "userName" | "password") {
