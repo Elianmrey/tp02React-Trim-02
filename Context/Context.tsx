@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import MaterialAlert from "../src/Components/MaterialAlert";
 import { useTranslation } from 'react-i18next';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-
+import { ThemeProvider, useMediaQuery } from "@mui/material";
+import { darkTheme, lightTheme  } from "../src/Themes/Theme";
 interface AppProviderProps {
     children: React.ReactNode;
 }
@@ -20,9 +21,11 @@ const AppContext = createContext<AppContextInterface | null>(null);
 const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY)
 
 
+
+
 const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' | 'warning' | 'info' });
-
+    const colorSchemeDark= useMediaQuery('prefers-color-scheme:dark');
    
 
     //i18n Tradução de linguagem 
@@ -79,9 +82,10 @@ const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
     return (
         <AppContext.Provider value={sharedState}>
+            <ThemeProvider theme={colorSchemeDark? darkTheme: lightTheme}>
             {children}
             <MaterialAlert snackbar={snackbar} handleCloseSnackbar={handleCloseSnackbar} />
-            
+            </ThemeProvider>
         </AppContext.Provider>
     );
 }

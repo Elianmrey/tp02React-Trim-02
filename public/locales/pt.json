@@ -66,5 +66,6 @@
    "formulary": "Formulário",
    "start-date": "Data de inicio",
    "end-date": "Data de finalização",
-   "no-items-to-show": "Nenhum item para mostrar"
+   "no-items-to-show": "Nenhum item para mostrar",
+   "item-saved-success": "Item cadastrado com sucesso!"
 }

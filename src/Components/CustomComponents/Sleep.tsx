@@ -1,6 +1,6 @@
 import { save } from "../../Services/Supabase";
 import FormComponent from "./Form";
-
+import { useAppContext } from "../../../Context/Context";
 interface SleepProps {
   data: {
     start_date?: string | undefined;
@@ -13,7 +13,7 @@ interface SleepProps {
 
 export default function Sleep({ data, setData, translate }: SleepProps) {
 
-
+const { ShowAlert } = useAppContext();
 
 
 const fields: {
@@ -27,7 +27,8 @@ const fields: {
   { name: "observation", label: translate("observation"), type: "text" },
 ];
   const handleSubmit = () => {
-    save('items', {...data, action_type: 1,title: "sleep"}).then((res) => console.log(res));
+    save('items', { ...data, action_type: 1, title: "sleep" }).then((res) => console.log(res));
+    ShowAlert(translate("item-saved-success"), "success");
     setData({});
   };
   

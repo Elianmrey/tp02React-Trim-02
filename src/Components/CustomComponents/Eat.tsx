@@ -1,5 +1,6 @@
 import { save } from "../../Services/Supabase";
 import FormComponent from "./Form";
+import { useAppContext } from "../../../Context/Context";
 
 interface EatProps {
   data: {
@@ -15,7 +16,8 @@ interface EatProps {
   translate: (key: string) => string;
 }
 
-export default function Eat ({ data, setData, translate }:EatProps)  {
+export default function Eat({ data, setData, translate }: EatProps) {
+  const { ShowAlert } = useAppContext();
   const fields: {
   name: string;
   label: string;
@@ -42,7 +44,8 @@ export default function Eat ({ data, setData, translate }:EatProps)  {
 
 
   const handleSubmit = () => {
-    save('items', {...data, action_type: 2,title: "eat"}).then((res) => console.log(res));
+    save('items', { ...data, action_type: 2, title: "eat" }).then((res) => console.log(res));
+    ShowAlert(translate("item-saved-success"), "success");
     setData({});
   };
 

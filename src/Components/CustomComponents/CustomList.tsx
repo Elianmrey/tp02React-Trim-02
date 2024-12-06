@@ -74,9 +74,11 @@ export default function CustomItemList({ items,onDrop, ...props }: ItemListProps
                     <ListItem
                         key={item.id}
                         sx={{
-                            backgroundColor: "#ccc",
+                            backgroundColor: "primary.light",
                             borderRadius: "60px",
                             marginTop: "1em",
+                            color: "white",
+                           
                         }}
                         id={`new-item-list-${index}`}
                       
@@ -90,7 +92,7 @@ export default function CustomItemList({ items,onDrop, ...props }: ItemListProps
                             primary={translate(typeStr)}
                             secondary={generateSubtitle(item, translate)} onClick={() => navigate(`/dashboard/${item.id}`)}
                         />
-                        <DeleteIcon sx={{ color: 'orangered', cursor: 'pointer',zIndex: 1000 }} onClick={() => onDrop(item.id)}/>
+                        <DeleteIcon sx={{ color: 'secondary.light', cursor: 'pointer',zIndex: 1000 }} onClick={() => onDrop(item.id)}/>
                     </ListItem>
                 );
             })}

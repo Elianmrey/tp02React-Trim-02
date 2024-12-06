@@ -1,7 +1,7 @@
 
 import { save } from "../../Services/Supabase";
 import FormComponent from "./Form";
-
+import { useAppContext } from "../../../Context/Context";
 interface DiaperProps {
     data: 
     {
@@ -13,7 +13,9 @@ interface DiaperProps {
     translate: (key: string) => string;
 }
 
-export default function Diaper ({ data, setData, translate }: DiaperProps)  {
+export default function Diaper({ data, setData, translate }: DiaperProps) {
+    const { ShowAlert } = useAppContext();
+    
     const fields: {
         name: string;
         label: string;
@@ -26,7 +28,9 @@ export default function Diaper ({ data, setData, translate }: DiaperProps)  {
         ];
 
     const handleSubmit = () => {
-    save('items', {...data, action_type: 3,title: "diaper"}).then((res) => console.log(res));
+        save('items', { ...data, action_type: 3, title: "diaper" }).then((res) => console.log(res));
+        
+        ShowAlert(translate("item-saved-success"), "success");
     setData({});
   };
     return <FormComponent fields={fields} data={data} setData={setData} onSubmit={handleSubmit} />;

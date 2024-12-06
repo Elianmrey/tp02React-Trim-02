@@ -32,7 +32,7 @@ const style = {
     fab: {
         width: '70px',
         height: '70px',
-        bgcolor: 'primary.main',
+        bgcolor: 'primary',
         "&:hover": { bgcolor: '#0061fc' },
     },
       titleContainer: {
@@ -51,7 +51,7 @@ const style = {
     fabStyle: {
         width: '70px',
         height: '70px',
-        bgcolor: 'primary.main',       
+        bgcolor: 'primary',       
         "&:hover": { bgcolor: '#0061fc' },
     },
       titleTypography: {
