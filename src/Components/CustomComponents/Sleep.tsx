@@ -27,7 +27,7 @@ const fields: {
   { name: "observation", label: translate("observation"), type: "text" },
 ];
   const handleSubmit = () => {
-    save('items', { ...data, action_type: 1, title: "sleep" }).then((res) => console.log(res));
+    save('items', { ...data, action_type: 1, title: "sleep" });
     ShowAlert(translate("item-saved-success"), "success");
     setData({});
   };

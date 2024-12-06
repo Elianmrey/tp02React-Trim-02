@@ -28,7 +28,7 @@ export default function Diaper({ data, setData, translate }: DiaperProps) {
         ];
 
     const handleSubmit = () => {
-        save('items', { ...data, action_type: 3, title: "diaper" }).then((res) => console.log(res));
+        save('items', { ...data, action_type: 3, title: "diaper" });
         
         ShowAlert(translate("item-saved-success"), "success");
     setData({});

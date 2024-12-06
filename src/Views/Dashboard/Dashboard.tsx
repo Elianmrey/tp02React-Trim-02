@@ -3,8 +3,9 @@ import MaterialBox from '../../Components/MaterialBox.tsx';
 import { useParams } from 'react-router-dom';
 import { get } from '../../Services/Supabase.tsx';
 import MaterialTypography from '../../Components/MaterialTypography.tsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MaterialCard from '../../Components/MaterialCard.tsx';
+import MaterialAppBar from '../../Components/CustomComponents/AppBar.tsx';
 
 
 export default function DashBoard() {
@@ -12,6 +13,9 @@ export default function DashBoard() {
     const [dataItem, setDataItem] = useState({});
     const { id } = useParams();
    
+    useEffect(() => {
+        getDashboard(Number(id));
+    }, [id]); 
     async function getDashboard(idItem: number) {
      try {
          await get("items", idItem).then((response: any) => setDataItem(response[0] as any));
@@ -21,10 +25,12 @@ export default function DashBoard() {
         }
   
 
-   getDashboard(Number(id));
+  
         console.log(dataItem);
     return (
+
         <MaterialBox styles={styles.container}>
+            <MaterialAppBar  title="Dashboard" home={false}/>
             <MaterialContainer styles={{width: "100%"}}>
                 
                 <MaterialTypography variant="h4" component="h1" styles={{ textAlign: 'center', marginBottom: 20, display:'block'} }>Dashboard</MaterialTypography>
@@ -41,18 +47,18 @@ export default function DashBoard() {
 };
 
 const styles = {
-    container: {
+   container: {
+        padding: '30px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: 10,
-        backgroundColor: '#181717',
-        borderRadius: 15,
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
-        width: '90%',
-        height: 'fit-content',
-        margin: '0 auto',
-        padding: 20,
-    }
+        justifyContent: 'space-between',
+        height: '90vh',
+        backgroundColor: 'indigo',
+        borderRadius: '10px',
+        borderColor: 'grey',
+        borderWidth: '2px',
+        borderStyle: 'solid',
+        margin: '10px auto',
+    },
 }
