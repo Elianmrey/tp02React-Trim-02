@@ -1,17 +1,17 @@
-
-import styles from './StyleSettings.module.scss';
-
-
-
 import { useState, useEffect } from 'react';
-import MaterialButton from "../../Components/MaterialButton.tsx";
+
+
+import MaterialContainer from './../../Components/MaterialContainer';
+import MaterialAppBar from '../../Components/CustomComponents/AppBar.tsx';
+import { useAppContext } from '../../../Context/Context.tsx';
 
 export default function Formulary() {
 
     const [data, setData] = useState<{ message: string } | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
-
+    const { translate } = useAppContext();
+    
     useEffect(() => {
 
         async function fetchData() {
@@ -31,7 +31,8 @@ export default function Formulary() {
     }, []);
 
     return (
-        <div className={styles.container}>
+        <MaterialContainer styles={styles.container}>
+            <MaterialAppBar title={ translate("settings")} home={false} />
             <h1>Página Settings</h1>
             {loading ? (
                 <p>Carregando...</p>
@@ -39,7 +40,22 @@ export default function Formulary() {
                 <p>{data?.message}</p>
             )}
 
-            <MaterialButton route="/" buttonText="Home" />
-        </div>
+        </MaterialContainer>
     );
 };
+const styles = {
+    container: {
+        padding: '30px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '90vh',
+        backgroundColor: 'indigo',
+        borderRadius: '10px',
+        borderColor: 'grey',
+        borderWidth: '2px',
+        borderStyle: 'solid',
+        margin: '10px auto',
+    },
+}

@@ -2,7 +2,7 @@ import { Grid2 } from "@mui/material";
 
 import AddIcon from '@mui/icons-material/Add';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import CardNewItem from './CustomComponents/CardNewItem'; // Ensure the correct path to the CardNewItem component
+import CardNewItem from './CustomComponents/CardNewItem';
 import { useAppContext } from "../../Context/Context";
 import MaterialContainer from "./MaterialContainer";
 import babyImg from "../assets/img/Baby.png";

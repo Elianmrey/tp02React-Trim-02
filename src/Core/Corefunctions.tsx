@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone'; // Import the timezone plugin
+import timezone from 'dayjs/plugin/timezone'; 
 dayjs.extend(utc);
-dayjs.extend(timezone); // Extend the timezone plugin
+dayjs.extend(timezone); 
 
 export function SaveToLocalStrg<T>(key: string, item: T): void {
     const storage = window.localStorage;
